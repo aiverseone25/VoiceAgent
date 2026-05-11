@@ -1,87 +1,102 @@
 import React, { useEffect, useState, useCallback, useRef } from 'react';
 import { AnimatePresence } from 'framer-motion';
 import { DinoProvider, useDino } from './context/DinoContext';
-import { useSpeechRecognition, useTextToSpeech } from './hooks/useSpeechRecognition';
+import { useGoogleTTS } from './hooks/useGoogleTTS';
+import { useGoogleSTT } from './hooks/useGoogleSTT';
 
-// Screens & overlays
-import HomeScreen from './components/HomeScreen';
-import DinoFloat from './components/DinoFloat';
-import VoiceModal from './components/VoiceModal';
+import HomeScreen        from './components/HomeScreen';
+import DinoFloat         from './components/DinoFloat';
+import VoiceModal        from './components/VoiceModal';
 import BookingConfirmation from './components/BookingConfirmation';
-import ServicesGrid from './components/ServicesGrid';
+import ServicesGrid      from './components/ServicesGrid';
 
-const GREETING = "Hi there! I'm Dino, your Urban Klean assistant. How can I help you today? I can book a cleaning service, share our latest offers, or check your past bookings!";
+const GREETING = "Hi there! I'm Dino, your Urban Klean assistant — powered by Google Chirp and Claude AI. How can I help you today? I can book a cleaning service, find our best offers, or check your past bookings!";
 
 function DinoApp() {
   const { state, dispatch, sendMessage, loadServices, loadOffers, wakeUp, resetConversation } = useDino();
-  const { speak, cancel: cancelSpeech, isSpeaking } = useTextToSpeech();
 
-  // Modal / overlay state
-  const [modalOpen, setModalOpen]   = useState(false);
+  // ── Voice engines ─────────────────────────────────────────────────────────
+  const {
+    speak, cancel: cancelSpeech,
+    isSpeaking, isLoading: ttsLoading,
+    voiceMode, currentVoice,
+  } = useGoogleTTS();
+
+  const [modalOpen,   setModalOpen]   = useState(false);
   const [showBooking, setShowBooking] = useState(false);
   const [showAllSvcs, setShowAllSvcs] = useState(false);
-  const [micActive, setMicActive]   = useState(false);
-  const [greeted, setGreeted]       = useState(false);
+  const [greeted,     setGreeted]     = useState(false);
+  const [micOn,       setMicOn]       = useState(true);
 
-  // ── Handlers ──────────────────────────────────────────────────────────────
+  const openRef = useRef(modalOpen);
+  openRef.current = modalOpen;
+
+  // ── Speak helper ──────────────────────────────────────────────────────────
+  const sayAndTrack = useCallback(async (text, opts = {}) => {
+    dispatch({ type: 'SET_SPEAKING', payload: true });
+    await new Promise(resolve => {
+      speak(text, {
+        ...opts,
+        onEnd: () => {
+          dispatch({ type: 'SET_SPEAKING', payload: false });
+          opts.onEnd?.();
+          resolve();
+        },
+      });
+    });
+  }, [speak, dispatch]);
+
+  // ── Open Dino modal ───────────────────────────────────────────────────────
   const openDino = useCallback((skipGreeting = false) => {
     setModalOpen(true);
     if (!greeted && !skipGreeting) {
       setGreeted(true);
+      dispatch({ type: 'SET_AWAKE', payload: true });
       setTimeout(() => {
-        dispatch({ type: 'SET_AWAKE', payload: true });
-        dispatch({ type: 'SET_SPEAKING', payload: true });
-        speak(GREETING, {
-          onEnd: () => {
-            dispatch({ type: 'SET_SPEAKING', payload: false });
-            dispatch({
-              type: 'ADD_MESSAGE',
-              payload: { role: 'assistant', content: GREETING, ts: Date.now() }
-            });
-          }
+        sayAndTrack(GREETING).then(() => {
+          dispatch({ type: 'ADD_MESSAGE', payload: { role: 'assistant', content: GREETING, ts: Date.now() } });
         });
       }, 350);
     }
-  }, [greeted, speak, dispatch]);
+  }, [greeted, sayAndTrack, dispatch]);
 
+  // ── Wake word detected ────────────────────────────────────────────────────
   const handleWakeWord = useCallback(() => {
-    if (!modalOpen) openDino();
-  }, [modalOpen, openDino]);
+    if (!openRef.current) openDino();
+  }, [openDino]);
 
-  const handleTranscript = useCallback(async (text) => {
+  // ── Transcript ready (from Web Speech or Google STT) ─────────────────────
+  const handleTranscript = useCallback(async (text, confidence) => {
     if (!text.trim()) return;
-    if (!modalOpen) openDino(true);
+    if (!openRef.current) openDino(true);
 
     const reply = await sendMessage(text);
-    if (reply) {
-      dispatch({ type: 'SET_SPEAKING', payload: true });
-      speak(reply, { onEnd: () => dispatch({ type: 'SET_SPEAKING', payload: false }) });
-    }
-  }, [modalOpen, openDino, sendMessage, speak, dispatch]);
+    if (reply) sayAndTrack(reply);
+  }, [openDino, sendMessage, sayAndTrack]);
 
   const handleInterim = useCallback((t) => {
     dispatch({ type: 'SET_INTERIM', payload: t });
   }, [dispatch]);
 
-  const { start, stop, isSupported } = useSpeechRecognition({
-    onWakeWord: handleWakeWord,
-    onTranscript: handleTranscript,
-    onInterim: handleInterim,
-    continuous: true
+  // ── Google STT / Web Speech hybrid ───────────────────────────────────────
+  const {
+    isSupported, isRecording, micError,
+    sttMode, lastConfidence,
+    startRecording, stopRecording,
+  } = useGoogleSTT({
+    onWakeWord:       handleWakeWord,
+    onTranscript:     handleTranscript,
+    onInterim:        handleInterim,
+    onRecordingChange: (rec) => dispatch({ type: 'SET_LISTENING', payload: rec }),
   });
 
   // ── Lifecycle ─────────────────────────────────────────────────────────────
   useEffect(() => { loadServices(); loadOffers(); }, []);
 
   useEffect(() => {
-    if (isSupported) { start(); setMicActive(true); }
-  }, [isSupported]);
-
-  useEffect(() => {
     dispatch({ type: 'SET_SPEAKING', payload: isSpeaking });
   }, [isSpeaking]);
 
-  // Show booking card when Dino creates a booking
   useEffect(() => {
     if (state.currentBooking && !showBooking) setShowBooking(true);
   }, [state.currentBooking]);
@@ -92,11 +107,6 @@ function DinoApp() {
     dispatch({ type: 'SET_INTERIM', payload: '' });
   };
 
-  const toggleMic = useCallback(() => {
-    if (micActive) { stop(); setMicActive(false); }
-    else { start(); setMicActive(true); }
-  }, [micActive, start, stop]);
-
   const handleReset = useCallback(async () => {
     cancelSpeech();
     await resetConversation();
@@ -106,30 +116,35 @@ function DinoApp() {
   const handleSend = useCallback(async (msg) => {
     if (!msg.trim()) return;
     const reply = await sendMessage(msg);
-    if (reply) {
-      dispatch({ type: 'SET_SPEAKING', payload: true });
-      speak(reply, { onEnd: () => dispatch({ type: 'SET_SPEAKING', payload: false }) });
-    }
-  }, [sendMessage, speak, dispatch]);
+    if (reply) sayAndTrack(reply);
+  }, [sendMessage, sayAndTrack]);
 
-  // ── Service booking from home card ────────────────────────────────────────
+  // ── Push-to-talk toggle ───────────────────────────────────────────────────
+  const handleMicToggle = useCallback(() => {
+    if (isRecording) { stopRecording(); }
+    else             { startRecording(); }
+  }, [isRecording, startRecording, stopRecording]);
+
+  // ── Book service from home card ───────────────────────────────────────────
   const handleBookService = useCallback((service) => {
     openDino(true);
-    const msg = `I want to book ${service.name}`;
-    // small delay so modal opens first
-    setTimeout(() => handleSend(msg), 600);
+    setTimeout(() => handleSend(`I want to book ${service.name}`), 600);
   }, [openDino, handleSend]);
 
-  // ── Derive avatar state ───────────────────────────────────────────────────
-  const avatarState = state.isSpeaking ? 'speaking'
+  // ── Avatar state ──────────────────────────────────────────────────────────
+  const avatarState = isSpeaking || ttsLoading ? 'speaking'
     : state.isProcessing ? 'processing'
-    : micActive ? 'listening'
+    : isRecording ? 'listening'
     : 'idle';
+
+  // ── Voice mode badge label ────────────────────────────────────────────────
+  const voiceBadge = voiceMode === 'google-chirp3'
+    ? { label: 'Chirp 3 HD', color: '#059669' }
+    : { label: 'Browser TTS', color: '#6b7280' };
 
   return (
     <div className="h-full relative w-full overflow-hidden">
 
-      {/* ── Home Screen (always visible underneath) ── */}
       <HomeScreen
         services={state.services}
         offers={state.offers}
@@ -137,39 +152,39 @@ function DinoApp() {
         onOpenDino={() => openDino()}
       />
 
-      {/* ── Floating Dino button ── */}
       <DinoFloat
         onClick={() => modalOpen ? handleClose() : openDino()}
         state={avatarState}
       />
 
-      {/* ── Voice Modal (slide-up sheet) ── */}
       <VoiceModal
         open={modalOpen}
         onClose={handleClose}
         messages={state.messages}
-        isProcessing={state.isProcessing}
-        isSpeaking={state.isSpeaking}
-        isListening={micActive && !state.isProcessing && !state.isSpeaking}
-        micActive={micActive}
+        isProcessing={state.isProcessing || ttsLoading}
+        isSpeaking={isSpeaking}
+        isRecording={isRecording}
+        micError={micError}
         interimTranscript={state.interimTranscript}
         onSend={handleSend}
-        onToggleMic={toggleMic}
+        onMicToggle={handleMicToggle}
         onReset={handleReset}
+        sttMode={sttMode}
+        voiceBadge={voiceBadge}
+        lastConfidence={lastConfidence}
+        currentVoice={currentVoice}
       />
 
-      {/* ── Booking confirmation overlay ── */}
       <AnimatePresence>
         {showBooking && state.currentBooking && (
           <BookingConfirmation
             booking={state.currentBooking}
             onClose={() => setShowBooking(false)}
-            onPaymentDone={(updated) => dispatch({ type: 'SET_BOOKING', payload: updated })}
+            onPaymentDone={(u) => dispatch({ type: 'SET_BOOKING', payload: u })}
           />
         )}
       </AnimatePresence>
 
-      {/* ── Full services grid overlay ── */}
       <AnimatePresence>
         {showAllSvcs && (
           <ServicesGrid services={state.services} onClose={() => setShowAllSvcs(false)} />
@@ -180,9 +195,5 @@ function DinoApp() {
 }
 
 export default function App() {
-  return (
-    <DinoProvider>
-      <DinoApp />
-    </DinoProvider>
-  );
+  return <DinoProvider><DinoApp /></DinoProvider>;
 }

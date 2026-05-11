@@ -1,0 +1,16 @@
+{
+  "customers": [],
+  "services": [],
+  "offers": [],
+  "bookings": [],
+  "conversation_sessions": [],
+  "time_slots": [],
+  "_sequences": {
+    "customers": 1,
+    "services": 1,
+    "offers": 1,
+    "bookings": 1,
+    "sessions": 1,
+    "slots": 1
+  }
+}

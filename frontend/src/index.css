@@ -1,0 +1,75 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html, body, #root { height: 100%; margin: 0; padding: 0; }
+  body {
+    background: #f5f3ff;
+    font-family: 'Inter', sans-serif;
+    overflow: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+  * { box-sizing: border-box; }
+}
+
+@layer utilities {
+  .scrollbar-hide::-webkit-scrollbar { display: none; }
+  .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+
+  .glass-white {
+    background: rgba(255,255,255,0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+  .glass-purple {
+    background: rgba(109, 40, 217, 0.12);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+  .shadow-purple {
+    box-shadow: 0 8px 32px rgba(109, 40, 217, 0.25);
+  }
+  .shadow-card {
+    box-shadow: 0 2px 16px rgba(0,0,0,0.08);
+  }
+}
+
+/* Voice bars */
+.voice-bar {
+  width: 3px;
+  border-radius: 3px;
+  background: linear-gradient(to top, #7c3aed, #a78bfa);
+  animation: wave 1.2s ease-in-out infinite;
+}
+.voice-bar:nth-child(1) { animation-delay: 0.0s; height: 10px; }
+.voice-bar:nth-child(2) { animation-delay: 0.1s; height: 20px; }
+.voice-bar:nth-child(3) { animation-delay: 0.2s; height: 28px; }
+.voice-bar:nth-child(4) { animation-delay: 0.3s; height: 20px; }
+.voice-bar:nth-child(5) { animation-delay: 0.15s; height: 14px; }
+.voice-bar:nth-child(6) { animation-delay: 0.25s; height: 24px; }
+.voice-bar:nth-child(7) { animation-delay: 0.05s; height: 16px; }
+
+@keyframes wave {
+  0%, 100% { transform: scaleY(0.3); opacity: 0.5; }
+  50%       { transform: scaleY(1);   opacity: 1; }
+}
+
+/* Dino ripple */
+@keyframes dino-ripple {
+  0%   { transform: scale(1);   opacity: 0.7; }
+  100% { transform: scale(2.2); opacity: 0;   }
+}
+.dino-ripple {
+  animation: dino-ripple 1.8s ease-out infinite;
+}
+.dino-ripple-2 {
+  animation: dino-ripple 1.8s ease-out 0.6s infinite;
+}
+
+/* Slide-up sheet */
+@keyframes slide-up {
+  from { transform: translateY(100%); }
+  to   { transform: translateY(0); }
+}
+.sheet-enter { animation: slide-up 0.35s cubic-bezier(0.32, 0.72, 0, 1) forwards; }

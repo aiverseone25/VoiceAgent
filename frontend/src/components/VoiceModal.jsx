@@ -1,6 +1,6 @@
 import React, { useRef, useEffect, useState, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Mic, MicOff, Send, RotateCcw, Radio } from 'lucide-react';
+import { X, Mic, MicOff, Send, RotateCcw, Radio, Volume2 } from 'lucide-react';
 
 // ── Dino avatar ───────────────────────────────────────────────────────────────
 function DinoAvatar({ size = 28, pulse = false }) {
@@ -177,6 +177,7 @@ export default function VoiceModal({
   micError, interimTranscript,
   onSend, onMicToggle, onReset,
   sttMode, voiceBadge, lastConfidence, currentVoice,
+  pendingTts, onPlayPendingTts,
 }) {
   const [text, setText] = useState('');
   const bottomRef = useRef(null);
@@ -340,6 +341,20 @@ export default function VoiceModal({
 
             {/* ── Input bar ────────────────────────────────────────────────── */}
             <div className="flex-shrink-0 bg-white px-3 py-3 border-t border-gray-100">
+              {pendingTts && (
+                <button
+                  type="button"
+                  onClick={onPlayPendingTts}
+                  className="mb-2 w-full flex items-center justify-center gap-2 py-2.5 rounded-2xl text-sm font-semibold text-white"
+                  style={{
+                    background: 'linear-gradient(135deg,#7c3aed,#6d28d9)',
+                    boxShadow: '0 4px 16px rgba(124,58,237,0.35)',
+                  }}
+                >
+                  <Volume2 className="w-4 h-4" />
+                  Hear reply
+                </button>
+              )}
 
               {/* Confidence + STT mode strip */}
               <AnimatePresence>

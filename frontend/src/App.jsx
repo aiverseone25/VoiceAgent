@@ -20,6 +20,7 @@ function DinoApp() {
     speak, cancel: cancelSpeech,
     isSpeaking, isLoading: ttsLoading,
     voiceMode, currentVoice,
+    pendingTts, playPendingTts,
   } = useGoogleTTS();
 
   const [modalOpen,   setModalOpen]   = useState(false);
@@ -30,14 +31,17 @@ function DinoApp() {
 
   const openRef = useRef(modalOpen);
   openRef.current = modalOpen;
+  const assistantSpeakingRef = useRef(false);
 
   // ── Speak helper ──────────────────────────────────────────────────────────
   const sayAndTrack = useCallback(async (text, opts = {}) => {
+    assistantSpeakingRef.current = true;
     dispatch({ type: 'SET_SPEAKING', payload: true });
     await new Promise(resolve => {
       speak(text, {
         ...opts,
         onEnd: () => {
+          assistantSpeakingRef.current = false;
           dispatch({ type: 'SET_SPEAKING', payload: false });
           opts.onEnd?.();
           resolve();
@@ -68,6 +72,10 @@ function DinoApp() {
   // ── Transcript ready (from Web Speech or Google STT) ─────────────────────
   const handleTranscript = useCallback(async (text, confidence) => {
     if (!text.trim()) return;
+    if (assistantSpeakingRef.current) {
+      dispatch({ type: 'SET_INTERIM', payload: '' });
+      return;
+    }
     if (!openRef.current) openDino(true);
 
     const reply = await sendMessage(text);
@@ -75,6 +83,7 @@ function DinoApp() {
   }, [openDino, sendMessage, sayAndTrack]);
 
   const handleInterim = useCallback((t) => {
+    if (assistantSpeakingRef.current) return;
     dispatch({ type: 'SET_INTERIM', payload: t });
   }, [dispatch]);
 
@@ -83,6 +92,7 @@ function DinoApp() {
     isSupported, isRecording, micError,
     sttMode, lastConfidence,
     startRecording, stopRecording,
+    startWebSpeech, stopWebSpeech,
   } = useGoogleSTT({
     onWakeWord:       handleWakeWord,
     onTranscript:     handleTranscript,
@@ -94,8 +104,19 @@ function DinoApp() {
   useEffect(() => { loadServices(); loadOffers(); }, []);
 
   useEffect(() => {
+    assistantSpeakingRef.current = isSpeaking || ttsLoading;
     dispatch({ type: 'SET_SPEAKING', payload: isSpeaking });
-  }, [isSpeaking]);
+    if (isSpeaking || ttsLoading) {
+      stopWebSpeech();
+      dispatch({ type: 'SET_INTERIM', payload: '' });
+      return;
+    }
+
+    const resumeId = setTimeout(() => {
+      if (!assistantSpeakingRef.current) startWebSpeech();
+    }, 600);
+    return () => clearTimeout(resumeId);
+  }, [isSpeaking, ttsLoading, startWebSpeech, stopWebSpeech, dispatch]);
 
   useEffect(() => {
     if (state.currentBooking && !showBooking) setShowBooking(true);
@@ -173,6 +194,8 @@ function DinoApp() {
         voiceBadge={voiceBadge}
         lastConfidence={lastConfidence}
         currentVoice={currentVoice}
+        pendingTts={pendingTts}
+        onPlayPendingTts={playPendingTts}
       />
 
       <AnimatePresence>

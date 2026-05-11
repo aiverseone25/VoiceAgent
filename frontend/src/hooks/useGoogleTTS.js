@@ -12,6 +12,12 @@
 import { useCallback, useRef, useState, useEffect } from 'react';
 import axios from 'axios';
 
+function isAutoplayBlocked(err) {
+  const name = err?.name || '';
+  const msg = String(err?.message || err || '').toLowerCase();
+  return name === 'NotAllowedError' || msg.includes("user didn't interact") || msg.includes('play() failed');
+}
+
 // ── Browser TTS fallback ──────────────────────────────────────────────────────
 function browserSpeak(text, { onStart, onEnd, onError } = {}) {
   if (!window.speechSynthesis) { onError?.('no-speech-synthesis'); return; }
@@ -48,10 +54,57 @@ export function useGoogleTTS() {
   const [isLoading, setIsLoading]       = useState(false);
   const [voiceMode, setVoiceMode]       = useState('unknown'); // 'google-chirp3' | 'browser'
   const [currentVoice, setCurrentVoice] = useState('');
+  const [pendingTts, setPendingTts]     = useState(false);
 
   const cancelRef    = useRef(false);   // flip to true to abort current utterance
   const audioRef     = useRef(null);    // active <Audio> element
   const abortCtrlRef = useRef(null);    // AbortController for in-flight axios
+  const pendingAudioUrlsRef = useRef([]);
+  const pendingBrowserTextRef = useRef('');
+
+  const playAudioUrls = useCallback(async (urls, { onStart, onEnd, allowDefer = true } = {}) => {
+    if (!urls.length) {
+      onEnd?.();
+      return { played: false, blocked: false };
+    }
+
+    setIsSpeaking(true);
+    onStart?.();
+
+    for (let i = 0; i < urls.length; i += 1) {
+      if (cancelRef.current) break;
+
+      const audio = new Audio(urls[i]);
+      audio.playbackRate = 1.0;
+      audioRef.current = audio;
+
+      try {
+        await audio.play();
+      } catch (err) {
+        audioRef.current = null;
+        setIsSpeaking(false);
+        if (allowDefer && isAutoplayBlocked(err)) {
+          pendingAudioUrlsRef.current = urls.slice(i);
+          setPendingTts(true);
+          onEnd?.();
+          return { played: false, blocked: true };
+        }
+        console.warn('[TTS] audio.play() failed:', err?.message || err);
+        onEnd?.();
+        return { played: false, blocked: false };
+      }
+
+      await new Promise((resolve) => {
+        audio.onended = resolve;
+        audio.onerror = resolve;
+      });
+    }
+
+    audioRef.current = null;
+    setIsSpeaking(false);
+    onEnd?.();
+    return { played: true, blocked: false };
+  }, []);
 
   // On mount, probe Google TTS availability
   useEffect(() => {
@@ -80,7 +133,40 @@ export function useGoogleTTS() {
     window.speechSynthesis?.cancel();
     setIsSpeaking(false);
     setIsLoading(false);
+    pendingAudioUrlsRef.current = [];
+    pendingBrowserTextRef.current = '';
+    setPendingTts(false);
   }, []);
+
+  const playPendingTts = useCallback(() => {
+    const urls = pendingAudioUrlsRef.current;
+    const text = pendingBrowserTextRef.current;
+    pendingAudioUrlsRef.current = [];
+    pendingBrowserTextRef.current = '';
+    setPendingTts(false);
+
+    if (urls.length) {
+      cancelRef.current = false;
+      void playAudioUrls(urls, { allowDefer: false }).then((result) => {
+        if (!result.played && text) {
+          browserSpeak(text, {
+            onStart: () => setIsSpeaking(true),
+            onEnd: () => setIsSpeaking(false),
+            onError: () => setIsSpeaking(false),
+          });
+        }
+      });
+      return;
+    }
+
+    if (text) {
+      browserSpeak(text, {
+        onStart: () => setIsSpeaking(true),
+        onEnd: () => setIsSpeaking(false),
+        onError: () => setIsSpeaking(false),
+      });
+    }
+  }, [playAudioUrls]);
 
   const speak = useCallback(async (text, { onStart, onEnd } = {}) => {
     if (!text?.trim()) return;
@@ -104,52 +190,41 @@ export function useGoogleTTS() {
         setIsLoading(false);
 
         if (cancelRef.current) return;
-        setIsSpeaking(true);
-        onStart?.();
-
         const chunks = data.chunks || [];
-        for (const chunk of chunks) {
-          if (cancelRef.current) break;
+        const urls = chunks
+          .map(chunk => chunk.audioContent && `data:audio/mp3;base64,${chunk.audioContent}`)
+          .filter(Boolean);
+        pendingBrowserTextRef.current = text;
 
-          await new Promise((resolve) => {
-            const audio = new Audio(`data:audio/mp3;base64,${chunk.audioContent}`);
-            audio.playbackRate = 1.0;
-            audioRef.current = audio;
-
-            audio.onended  = resolve;
-            audio.onerror  = resolve;
-            audio.play().catch(resolve);
-          });
+        const result = await playAudioUrls(urls, { onStart, onEnd, allowDefer: true });
+        if (result.blocked) {
+          console.warn('[TTS] Audio is ready, but Chrome blocked autoplay. Tap “Hear reply” to play it.');
+          return;
         }
 
         if (!cancelRef.current) {
           setVoiceMode('google-chirp3'); // confirm it works
         }
+        return;
       } catch (err) {
         setIsLoading(false);
         if (err.name === 'CanceledError' || err.name === 'AbortError') return;
 
-        // Fallback to browser TTS
-        console.warn('[TTS] Google failed, using browser fallback:', err.message);
+        console.warn('[TTS] Google failed; reply queued for tap-to-play:', err.message);
         setVoiceMode('browser');
-        browserSpeak(text, {
-          onStart: () => { setIsSpeaking(true); onStart?.(); },
-          onEnd:   () => { setIsSpeaking(false); onEnd?.(); },
-        });
+        pendingBrowserTextRef.current = text;
+        setPendingTts(true);
+        onEnd?.();
         return;
       }
     } else {
       // ── Browser TTS ───────────────────────────────────────────────────────
-      browserSpeak(text, {
-        onStart: () => { setIsSpeaking(true); onStart?.(); },
-        onEnd:   () => { setIsSpeaking(false); onEnd?.(); },
-      });
+      pendingBrowserTextRef.current = text;
+      setPendingTts(true);
+      onEnd?.();
       return;
     }
+  }, [voiceMode, cancel, playAudioUrls]);
 
-    setIsSpeaking(false);
-    onEnd?.();
-  }, [voiceMode, cancel]);
-
-  return { speak, cancel, isSpeaking, isLoading, voiceMode, currentVoice };
+  return { speak, cancel, isSpeaking, isLoading, voiceMode, currentVoice, pendingTts, playPendingTts };
 }

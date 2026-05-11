@@ -51,6 +51,7 @@ export function useGoogleSTT({ onWakeWord, onTranscript, onInterim, onRecordingC
   // Web Speech API (continuous, for wake word)
   const wsRef         = useRef(null);
   const wsRunningRef  = useRef(false);
+  const wsAutoRestartRef = useRef(true);
   const wsLastFinalRef = useRef('');   // deduplicate finals
 
   // MediaRecorder (for Google STT)
@@ -63,6 +64,7 @@ export function useGoogleSTT({ onWakeWord, onTranscript, onInterim, onRecordingC
   const startWebSpeech = useCallback(() => {
     const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
     if (!SR || wsRunningRef.current) return;
+    wsAutoRestartRef.current = true;
 
     const r         = new SR();
     r.lang           = 'en-IN';
@@ -95,7 +97,7 @@ export function useGoogleSTT({ onWakeWord, onTranscript, onInterim, onRecordingC
     r.onend = () => {
       wsRunningRef.current = false;
       // auto-restart
-      if (wsRef.current === r) setTimeout(startWebSpeech, 400);
+      if (wsAutoRestartRef.current && wsRef.current === r) setTimeout(startWebSpeech, 400);
     };
 
     r.onerror = (e) => {
@@ -108,6 +110,7 @@ export function useGoogleSTT({ onWakeWord, onTranscript, onInterim, onRecordingC
   }, [onWakeWord, onTranscript, onInterim]);
 
   const stopWebSpeech = useCallback(() => {
+    wsAutoRestartRef.current = false;
     wsRunningRef.current = false;
     try { wsRef.current?.stop(); } catch { /* ignore */ }
   }, []);

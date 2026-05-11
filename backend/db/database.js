@@ -2,6 +2,7 @@ const { LowSync } = require('lowdb');
 const { JSONFileSync } = require('lowdb/node');
 const path = require('path');
 const fs = require('fs');
+const { services: mockServices, offers: mockOffers } = require('./mockData');
 
 const dbPath = process.env.DB_PATH || path.join(__dirname, 'urbanklean.json');
 
@@ -24,9 +25,81 @@ function getDb() {
     db.read();
     if (!db.data) db.data = defaultData;
     if (!db.data._sequences) db.data._sequences = defaultData._sequences;
+    seedMockDataIfEmpty(db);
     db.write();
   }
   return db;
+}
+
+function seedMockDataIfEmpty(db) {
+  if (!Array.isArray(db.data.services)) db.data.services = [];
+  if (!Array.isArray(db.data.offers)) db.data.offers = [];
+
+  if (db.data.services.length === 0) {
+    db.data.services = mockServices.map((service, idx) => ({
+      id: idx + 1,
+      ...service,
+      is_active: 1
+    }));
+  }
+
+  if (db.data.offers.length === 0) {
+    db.data.offers = mockOffers.map((offer, idx) => ({
+      id: idx + 1,
+      ...offer,
+      usage_count: 0,
+      is_active: 1
+    }));
+  }
+
+  const maxServiceId = db.data.services.reduce((max, s) => Math.max(max, Number(s.id) || 0), 0);
+  const maxOfferId = db.data.offers.reduce((max, o) => Math.max(max, Number(o.id) || 0), 0);
+  db.data._sequences.services = Math.max(db.data._sequences.services || 1, maxServiceId + 1);
+  db.data._sequences.offers = Math.max(db.data._sequences.offers || 1, maxOfferId + 1);
+}
+
+function normalizeSearch(text) {
+  return String(text || '')
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, ' ')
+    .trim();
+}
+
+function serviceSearchText(service) {
+  return normalizeSearch([
+    service.name,
+    service.category,
+    service.description,
+    ...(service.aliases || []),
+    ...(service.highlights || [])
+  ].join(' '));
+}
+
+function scoreService(service, query) {
+  const normalizedQuery = normalizeSearch(query);
+  if (!normalizedQuery) return 0;
+
+  const searchText = serviceSearchText(service);
+  const serviceName = normalizeSearch(service.name);
+  const aliases = (service.aliases || []).map(normalizeSearch);
+  const stopWords = new Set(['a', 'an', 'and', 'for', 'in', 'of', 'the', 'to', 'service', 'services', 'clean', 'cleaning']);
+  const queryWords = normalizedQuery
+    .split(' ')
+    .filter(word => word.length >= 3 && !stopWords.has(word));
+
+  let score = 0;
+  if (serviceName === normalizedQuery) score += 100;
+  if (serviceName.includes(normalizedQuery) || normalizedQuery.includes(serviceName)) score += 60;
+  if (aliases.some(alias => alias === normalizedQuery)) score += 90;
+  if (aliases.some(alias => alias.includes(normalizedQuery) || normalizedQuery.includes(alias))) score += 50;
+
+  for (const word of queryWords) {
+    if (serviceName.includes(word)) score += 12;
+    if (aliases.some(alias => alias.includes(word))) score += 10;
+    if (searchText.includes(word)) score += 4;
+  }
+
+  return score;
 }
 
 function nextId(table) {
@@ -76,11 +149,20 @@ const dbOps = {
   },
   getServiceByName: (name) => {
     const db = getDb();
-    const lower = name.toLowerCase();
-    return db.data.services.find(s => s.is_active && s.name.toLowerCase().includes(lower)) || null;
+    const best = db.data.services
+      .filter(s => s.is_active)
+      .map(s => ({ service: s, score: scoreService(s, name) }))
+      .sort((a, b) => b.score - a.score)[0];
+    return best?.score > 0 ? best.service : null;
   },
   insertService: (s) => {
     const db = getDb();
+    const existing = db.data.services.findIndex(service => normalizeSearch(service.name) === normalizeSearch(s.name));
+    if (existing >= 0) {
+      db.data.services[existing] = { ...db.data.services[existing], ...s, is_active: 1 };
+      db.write();
+      return db.data.services[existing];
+    }
     const id = nextId('services');
     const svc = { id, ...s, is_active: 1 };
     db.data.services.push(svc);

@@ -8,6 +8,13 @@
     "dev": "nodemon server.js",
     "seed": "node db/seed.js"
   },
+  "nodemonConfig": {
+    "ignore": [
+      "db/*.json",
+      "db/*.db",
+      "*.log"
+    ]
+  },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.32.1",
     "axios": "^1.7.2",

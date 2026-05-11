@@ -3,7 +3,7 @@ const { dbOps } = require('../db/database');
 
 const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
 
-const SYSTEM_PROMPT = `You are Dino, the friendly and professional voice assistant for Urban Klean, a premium home and commercial cleaning service in Hyderabad, India.
+const BASE_SYSTEM_PROMPT = `You are Dino, the friendly and professional voice assistant for Urban Klean, a premium home and commercial cleaning service in Hyderabad, India.
 
 ## Your Personality
 - Warm, conversational, and helpful — like talking to a knowledgeable friend
@@ -39,12 +39,47 @@ const SYSTEM_PROMPT = `You are Dino, the friendly and professional voice assista
 - If customer is frustrated, empathize first before problem-solving
 - Keep voice responses SHORT — use "Would you like me to tell you more?" for details
 - Payment is always collected before confirming the booking
+- Never ask the customer for today's date. Use the current date context provided below.
+- Convert relative dates like today, tomorrow, this weekend, next Saturday, and next week into YYYY-MM-DD before checking availability or creating a booking.
 
 ## Voice Response Format
 - No markdown, no bullet points in spoken responses
 - Short sentences, natural pauses
 - Numbers spoken naturally (1499 rupees = "fourteen ninety-nine rupees")
 - Dates spoken naturally ("this Saturday, May 11th")`;
+
+function formatDateParts(date) {
+  const iso = new Intl.DateTimeFormat('en-CA', {
+    timeZone: 'Asia/Kolkata',
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+  }).format(date);
+
+  const spoken = new Intl.DateTimeFormat('en-IN', {
+    timeZone: 'Asia/Kolkata',
+    weekday: 'long',
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+  }).format(date);
+
+  return { iso, spoken };
+}
+
+function buildSystemPrompt(now = new Date()) {
+  const tomorrow = new Date(now.getTime() + 24 * 60 * 60 * 1000);
+  const todayParts = formatDateParts(now);
+  const tomorrowParts = formatDateParts(tomorrow);
+
+  return `${BASE_SYSTEM_PROMPT}
+
+## Current Date Context
+- Business timezone: Asia/Kolkata (Hyderabad)
+- Today: ${todayParts.iso} (${todayParts.spoken})
+- Tomorrow: ${tomorrowParts.iso} (${tomorrowParts.spoken})
+- Use these dates for all scheduling and availability checks.`;
+}
 
 const tools = [
   {
@@ -284,7 +319,7 @@ async function runConversation(messages) {
   const response = await anthropic.messages.create({
     model: 'claude-sonnet-4-6',
     max_tokens: 1024,
-    system: SYSTEM_PROMPT,
+    system: buildSystemPrompt(),
     tools,
     messages
   });

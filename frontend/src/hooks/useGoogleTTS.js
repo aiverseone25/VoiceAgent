@@ -18,6 +18,19 @@ function isAutoplayBlocked(err) {
   return name === 'NotAllowedError' || msg.includes("user didn't interact") || msg.includes('play() failed');
 }
 
+function textForSpeech(text) {
+  return String(text || '')
+    .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
+    .replace(/`([^`]+)`/g, '$1')
+    .replace(/\*\*([^*]+)\*\*/g, '$1')
+    .replace(/__([^_]+)__/g, '$1')
+    .replace(/^\s{0,3}#{1,6}\s+/gm, '')
+    .replace(/^\s{0,3}[-*+]\s+/gm, '')
+    .replace(/[*_~]{1,3}/g, '')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
 // ── Browser TTS fallback ──────────────────────────────────────────────────────
 function browserSpeak(text, { onStart, onEnd, onError } = {}) {
   if (!window.speechSynthesis) { onError?.('no-speech-synthesis'); return; }
@@ -169,7 +182,8 @@ export function useGoogleTTS() {
   }, [playAudioUrls]);
 
   const speak = useCallback(async (text, { onStart, onEnd } = {}) => {
-    if (!text?.trim()) return;
+    const speechText = textForSpeech(text);
+    if (!speechText) return;
     cancel(); // stop any current speech immediately
 
     cancelRef.current = false;
@@ -183,7 +197,7 @@ export function useGoogleTTS() {
       try {
         // Stream mode: synthesize sentence-by-sentence
         const { data } = await axios.post('/api/voice/synthesize',
-          { text, stream: true },
+          { text: speechText, stream: true },
           { signal: ctrl.signal, timeout: 10000 }
         );
 
@@ -194,7 +208,7 @@ export function useGoogleTTS() {
         const urls = chunks
           .map(chunk => chunk.audioContent && `data:audio/mp3;base64,${chunk.audioContent}`)
           .filter(Boolean);
-        pendingBrowserTextRef.current = text;
+        pendingBrowserTextRef.current = speechText;
 
         const result = await playAudioUrls(urls, { onStart, onEnd, allowDefer: true });
         if (result.blocked) {
@@ -212,14 +226,14 @@ export function useGoogleTTS() {
 
         console.warn('[TTS] Google failed; reply queued for tap-to-play:', err.message);
         setVoiceMode('browser');
-        pendingBrowserTextRef.current = text;
+        pendingBrowserTextRef.current = speechText;
         setPendingTts(true);
         onEnd?.();
         return;
       }
     } else {
       // ── Browser TTS ───────────────────────────────────────────────────────
-      pendingBrowserTextRef.current = text;
+      pendingBrowserTextRef.current = speechText;
       setPendingTts(true);
       onEnd?.();
       return;

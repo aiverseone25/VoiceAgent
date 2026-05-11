@@ -9,8 +9,12 @@ import DinoFloat         from './components/DinoFloat';
 import VoiceModal        from './components/VoiceModal';
 import BookingConfirmation from './components/BookingConfirmation';
 import ServicesGrid      from './components/ServicesGrid';
+import AppBottomNav      from './components/AppBottomNav';
+import BookingTabScreen  from './components/BookingTabScreen';
+import OffersTabScreen   from './components/OffersTabScreen';
+import ProfileTabScreen  from './components/ProfileTabScreen';
 
-const GREETING = "Hi there! I'm Dino, your Urban Klean assistant — powered by Google Chirp and Claude AI. How can I help you today? I can book a cleaning service, find our best offers, or check your past bookings!";
+const GREETING = "Hi there! I'm Dino, your Urban Klean assistant — powered by AI. How can I help you today? I can book a cleaning service, find our best offers, or check your past bookings!";
 
 function DinoApp() {
   const { state, dispatch, sendMessage, loadServices, loadOffers, wakeUp, resetConversation } = useDino();
@@ -28,6 +32,7 @@ function DinoApp() {
   const [showAllSvcs, setShowAllSvcs] = useState(false);
   const [greeted,     setGreeted]     = useState(false);
   const [micOn,       setMicOn]       = useState(true);
+  const [mainTab,     setMainTab]     = useState('home');
 
   const openRef = useRef(modalOpen);
   openRef.current = modalOpen;
@@ -163,15 +168,48 @@ function DinoApp() {
     ? { label: 'Chirp 3 HD', color: '#059669' }
     : { label: 'Browser TTS', color: '#6b7280' };
 
-  return (
-    <div className="h-full relative w-full overflow-hidden">
+  const openAssistant = useCallback(() => openDino(), [openDino]);
 
-      <HomeScreen
-        services={state.services}
-        offers={state.offers}
-        onBookService={handleBookService}
-        onOpenDino={() => openDino()}
-      />
+  return (
+    <div className="h-full relative w-full overflow-hidden flex flex-col">
+
+      <div className="relative min-h-0 flex-1 overflow-hidden">
+        {mainTab === 'home' && (
+          <HomeScreen
+            services={state.services}
+            offers={state.offers}
+            onBookService={handleBookService}
+            onOpenDino={openAssistant}
+            onSeeAllServices={() => setShowAllSvcs(true)}
+            onOpenOffers={() => setMainTab('offers')}
+          />
+        )}
+
+        {mainTab === 'booking' && (
+          <BookingTabScreen
+            currentBooking={state.currentBooking}
+            bookingHistory={state.bookingHistory}
+            onOpenDino={openAssistant}
+          />
+        )}
+
+        {mainTab === 'offers' && (
+          <OffersTabScreen
+            offers={state.offers}
+            onOpenDino={openAssistant}
+          />
+        )}
+
+        {mainTab === 'profile' && (
+          <ProfileTabScreen
+            customerName={state.customerName}
+            customerPhone={state.customerPhone}
+            onOpenDino={openAssistant}
+          />
+        )}
+      </div>
+
+      <AppBottomNav active={mainTab} onChange={setMainTab} />
 
       <DinoFloat
         onClick={() => modalOpen ? handleClose() : openDino()}

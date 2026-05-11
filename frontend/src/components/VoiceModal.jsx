@@ -297,7 +297,7 @@ export default function VoiceModal({
                     </div>
                   </motion.div>
                   <p className="text-gray-700 font-bold text-base">Hi! I'm Dino 👋</p>
-                  <p className="text-gray-400 text-xs text-center max-w-xs">Your Urban Klean AI — powered by Claude + Google Chirp 3 HD</p>
+                  <p className="text-gray-400 text-xs text-center max-w-xs">Your Urban Klean AI — powered by AI</p>
 
                   {/* Voice mode indicator */}
                   {voiceBadge && (

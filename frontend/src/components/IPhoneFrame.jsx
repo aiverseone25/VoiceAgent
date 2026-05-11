@@ -7,32 +7,33 @@ const BEZEL_T  = 14;   // top bezel
 const BEZEL_B  = 16;   // bottom bezel
 
 // Battery icon (SVG inline)
-function BatteryIcon({ pct = 82 }) {
+function BatteryIcon({ pct = 82, color = '#111827' }) {
+  const fillWidth = Math.max(2, Math.round(19 * pct / 100));
   return (
     <svg width="25" height="12" viewBox="0 0 25 12" fill="none">
-      <rect x="0.5" y="0.5" width="21" height="11" rx="3.5" stroke="white" strokeOpacity="0.35" />
-      <rect x="1.5" y="1.5" width={Math.round(19 * pct / 100)} height="9" rx="2" fill="white" />
-      <path d="M23 4v4a2 2 0 000-4z" fill="white" fillOpacity="0.4" />
+      <rect x="0.5" y="0.5" width="21" height="11" rx="3.5" stroke={color} strokeOpacity="0.42" />
+      <rect x="1.5" y="1.5" width={fillWidth} height="9" rx="2" fill={color} />
+      <path d="M23 4v4a2 2 0 000-4z" fill={color} fillOpacity="0.45" />
     </svg>
   );
 }
 
 // Signal bars
-function SignalBars() {
+function SignalBars({ color = '#111827' }) {
   return (
-    <svg width="17" height="12" viewBox="0 0 17 12" fill="white">
+    <svg width="17" height="12" viewBox="0 0 17 12" fill={color}>
       <rect x="0" y="7" width="3" height="5" rx="1" />
       <rect x="4.5" y="5" width="3" height="7" rx="1" />
       <rect x="9" y="3" width="3" height="9" rx="1" />
-      <rect x="13.5" y="0" width="3" height="12" rx="1" opacity="0.25" />
+      <rect x="13.5" y="0" width="3" height="12" rx="1" opacity="0.45" />
     </svg>
   );
 }
 
 // WiFi icon
-function WifiIcon() {
+function WifiIcon({ color = '#111827' }) {
   return (
-    <svg width="16" height="12" viewBox="0 0 16 12" fill="white">
+    <svg width="16" height="12" viewBox="0 0 16 12" fill={color}>
       <path d="M8 9.5a1.5 1.5 0 110 3 1.5 1.5 0 010-3z" />
       <path d="M8 6.5C6.07 6.5 4.33 7.3 3.1 8.6l1.42 1.42A4.5 4.5 0 018 8.5a4.5 4.5 0 013.48 1.52l1.42-1.42A6.48 6.48 0 008 6.5z" opacity="0.75" />
       <path d="M8 3C5.1 3 2.49 4.2.73 6.15l1.42 1.42A7.96 7.96 0 018 5a7.96 7.96 0 015.85 2.57l1.42-1.42A9.96 9.96 0 008 3z" opacity="0.5" />
@@ -51,7 +52,7 @@ function Clock() {
     const id = setInterval(update, 10000);
     return () => clearInterval(id);
   }, []);
-  return <span style={{ fontWeight: 700, fontSize: 15, letterSpacing: -0.3, color: 'white' }}>{time}</span>;
+  return <span style={{ fontWeight: 800, fontSize: 15, letterSpacing: -0.35, color: '#111827' }}>{time}</span>;
 }
 
 export default function IPhoneFrame({ children }) {
@@ -242,13 +243,23 @@ export default function IPhoneFrame({ children }) {
             zIndex: 99,
             pointerEvents: 'none',
           }}>
-            {/* Time */}
-            <div style={{ minWidth: 60 }}>
+            {/* Time + carrier/provider */}
+            <div style={{ minWidth: 100, display: 'flex', alignItems: 'baseline', gap: 6 }}>
               <Clock />
+              <span style={{
+                color: '#111827',
+                fontSize: 10,
+                fontWeight: 800,
+                letterSpacing: -0.1,
+                opacity: 0.72,
+              }}>
+                Jio
+              </span>
             </div>
-            {/* Icons */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+            {/* Network and battery indicators */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: 5, color: '#111827' }}>
               <SignalBars />
+              <span style={{ fontSize: 10, lineHeight: 1, fontWeight: 900, letterSpacing: -0.2 }}>5G</span>
               <WifiIcon />
               <BatteryIcon pct={82} />
             </div>

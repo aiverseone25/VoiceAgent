@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   Search, SlidersHorizontal, Bell, MapPin,
-  ChevronDown, ChevronRight, Star, Home,
-  Calendar, Tag, User, Sparkles
+  ChevronDown, ChevronRight, Star, Tag
 } from 'lucide-react';
+import CompanyLogo from './CompanyLogo';
 
 // ─── Hero Carousel ────────────────────────────────────────────────────────────
 const SLIDES = [
@@ -102,11 +102,11 @@ function HeroCarousel({ onBook }) {
 // ─── Category Pills ───────────────────────────────────────────────────────────
 const CATEGORIES = [
   { label: 'Full Home', icon: '🏠' },
-  { label: 'Cleaning',  icon: '🧹' },
-  { label: 'Sevaks',    icon: '👤' },
-  { label: 'AC Repair', icon: '❄️' },
-  { label: 'Kitchen',   icon: '🍳' },
   { label: 'Bathroom',  icon: '🚿' },
+  { label: 'Kitchen',   icon: '🍳' },
+  { label: 'Sofa',      icon: '🛋️' },
+  { label: 'Office',    icon: '🏢' },
+  { label: 'Clinic',    icon: '🏥' },
 ];
 
 function CategoryPills() {
@@ -172,6 +172,40 @@ const BG_COLORS = [
   'bg-green-50',
 ];
 
+const SERVICE_ICONS = {
+  home: '🏠',
+  sparkles: '✨',
+  bath: '🚿',
+  kitchen: '🍳',
+  bed: '🛏️',
+  sofa: '🛋️',
+  balcony: '🌿',
+  key: '🔑',
+  tools: '🧰',
+  carpet: '🧼',
+  mattress: '🛏️',
+  curtain: '🪟',
+  window: '🪟',
+  appliance: '🧊',
+  chimney: '♨️',
+  tank: '💧',
+  floor: '✨',
+  shield: '🛡️',
+  office: '🏢',
+  clinic: '🏥',
+  restaurant: '🍽️',
+  store: '🛍️',
+  building: '🏬',
+  event: '🎉',
+  vent: '❄️',
+  fan: '🌀',
+};
+
+function serviceIcon(icon) {
+  if (!icon) return '🧹';
+  return SERVICE_ICONS[icon] || icon;
+}
+
 function ServiceCard({ service, index, onBook }) {
   const minPrice = Object.values(service.pricing_variants || {})[0] || service.base_price;
   const bg = BG_COLORS[index % BG_COLORS.length];
@@ -189,7 +223,7 @@ function ServiceCard({ service, index, onBook }) {
         </div>
       )}
       <div className="relative h-24 flex items-center justify-center">
-        <span className="text-5xl">{service.icon}</span>
+        <span className="text-5xl">{serviceIcon(service.icon)}</span>
       </div>
       <div className="px-3 pb-3">
         <p className="text-gray-800 font-semibold text-xs leading-tight mb-0.5">{service.name}</p>
@@ -203,54 +237,24 @@ function ServiceCard({ service, index, onBook }) {
   );
 }
 
-// ─── Bottom Nav ───────────────────────────────────────────────────────────────
-const NAV_ITEMS = [
-  { label: 'Home',    icon: Home,     key: 'home' },
-  { label: 'Booking', icon: Calendar, key: 'booking' },
-  { label: 'Offers',  icon: Tag,      key: 'offers' },
-  { label: 'Profile', icon: User,     key: 'profile' },
-];
-
-function BottomNav({ active, onChange }) {
-  return (
-    <div className="flex-shrink-0 bg-white border-t border-gray-100 px-2" style={{ paddingBottom: 20 }}>
-      <div className="flex items-center justify-around">
-        {NAV_ITEMS.map(({ label, icon: Icon, key }) => {
-          const isActive = active === key;
-          return (
-            <button
-              key={key}
-              onClick={() => onChange(key)}
-              className="flex flex-col items-center gap-0.5 py-3 px-4 relative"
-            >
-              <Icon
-                className={`w-5 h-5 transition-colors ${isActive ? 'text-brand-600' : 'text-gray-400'}`}
-                strokeWidth={isActive ? 2.5 : 1.8}
-              />
-              <span className={`text-[10px] font-medium ${isActive ? 'text-brand-600' : 'text-gray-400'}`}>
-                {label}
-              </span>
-              {isActive && (
-                <motion.div
-                  layoutId="nav-dot"
-                  className="absolute bottom-1.5 w-1 h-1 rounded-full bg-brand-600"
-                />
-              )}
-            </button>
-          );
-        })}
-      </div>
-    </div>
-  );
-}
-
 // ─── Main HomeScreen ──────────────────────────────────────────────────────────
-export default function HomeScreen({ services, offers, onBookService, onOpenDino }) {
-  const [navTab, setNavTab] = useState('home');
+export default function HomeScreen({ services = [], offers = [], onBookService, onOpenDino, onSeeAllServices, onOpenOffers }) {
   const [search, setSearch] = useState('');
 
+  const categories = [
+    { label: 'All', value: 'all', count: services.length },
+    { label: 'Home', value: 'home', count: services.filter(s => s.category === 'home').length },
+    { label: 'Specialty', value: 'specialty', count: services.filter(s => s.category === 'specialty').length },
+    { label: 'Commercial', value: 'commercial', count: services.filter(s => s.category === 'commercial').length },
+  ];
+
   const displayServices = search
-    ? services.filter(s => s.name.toLowerCase().includes(search.toLowerCase()))
+    ? services.filter(s => [
+      s.name,
+      s.description,
+      s.category,
+      ...(s.aliases || []),
+    ].join(' ').toLowerCase().includes(search.toLowerCase()))
     : services;
 
   return (
@@ -261,14 +265,17 @@ export default function HomeScreen({ services, offers, onBookService, onOpenDino
 
       {/* ── Header ── */}
       <div className="flex-shrink-0 bg-white flex items-center justify-between px-4 pb-3">
-        <div className="flex items-start gap-1.5">
-          <MapPin className="w-4 h-4 text-brand-600 mt-0.5 flex-shrink-0" />
-          <div>
-            <div className="flex items-center gap-1">
-              <span className="font-bold text-gray-900 text-sm">My House</span>
-              <ChevronDown className="w-3.5 h-3.5 text-gray-500" />
+        <div className="flex items-center gap-3 min-w-0">
+          <CompanyLogo size="sm" showName={false} />
+          <div className="flex items-start gap-1.5 min-w-0">
+            <MapPin className="w-4 h-4 text-brand-600 mt-0.5 flex-shrink-0" />
+            <div className="min-w-0">
+              <div className="flex items-center gap-1">
+                <span className="font-bold text-gray-900 text-sm">My House</span>
+                <ChevronDown className="w-3.5 h-3.5 text-gray-500" />
+              </div>
+              <p className="text-gray-400 text-[11px] truncate">Tank Bund Road, Hyderabad</p>
             </div>
-            <p className="text-gray-400 text-[11px]">Tank Bund Road, Hyderabad</p>
           </div>
         </div>
         <button className="relative w-9 h-9 rounded-full bg-brand-50 flex items-center justify-center">
@@ -282,6 +289,20 @@ export default function HomeScreen({ services, offers, onBookService, onOpenDino
 
         {/* Hero */}
         <HeroCarousel onBook={onOpenDino} />
+
+        {/* Trust strip */}
+        <div className="mx-4 mb-4 grid grid-cols-3 gap-2">
+          {[
+            ['50k+', 'Customers'],
+            ['4.8', 'Rating'],
+            ['27', 'Services'],
+          ].map(([value, label]) => (
+            <div key={label} className="bg-white rounded-2xl p-3 border border-gray-100 shadow-card">
+              <p className="text-gray-900 font-black text-base">{value}</p>
+              <p className="text-gray-400 text-[10px]">{label}</p>
+            </div>
+          ))}
+        </div>
 
         {/* Search */}
         <div className="mx-4 mb-4 flex gap-2">
@@ -304,6 +325,20 @@ export default function HomeScreen({ services, offers, onBookService, onOpenDino
           <CategoryPills />
         </div>
 
+        {/* Service groups */}
+        <div className="mx-4 mb-4 grid grid-cols-4 gap-2">
+          {categories.map(c => (
+            <button
+              key={c.value}
+              onClick={() => setSearch(c.value === 'all' ? '' : c.value)}
+              className="bg-white border border-gray-100 rounded-2xl px-2 py-3 text-center shadow-card"
+            >
+              <p className="text-gray-900 text-sm font-black">{c.count}</p>
+              <p className="text-gray-400 text-[10px]">{c.label}</p>
+            </button>
+          ))}
+        </div>
+
         {/* Offer banner */}
         <OfferBanner offers={offers} />
 
@@ -311,7 +346,7 @@ export default function HomeScreen({ services, offers, onBookService, onOpenDino
         <div className="mb-6">
           <div className="flex items-center justify-between px-4 mb-3">
             <h3 className="font-bold text-gray-900 text-base">Explore Services</h3>
-            <button className="flex items-center gap-0.5 text-brand-600 text-xs font-semibold">
+            <button onClick={onSeeAllServices} className="flex items-center gap-0.5 text-brand-600 text-xs font-semibold">
               See all <ChevronRight className="w-3.5 h-3.5" />
             </button>
           </div>
@@ -329,7 +364,7 @@ export default function HomeScreen({ services, offers, onBookService, onOpenDino
           <div className="mb-6 px-4">
             <div className="flex items-center justify-between mb-3">
               <h3 className="font-bold text-gray-900 text-base">Active Offers</h3>
-              <button className="flex items-center gap-0.5 text-brand-600 text-xs font-semibold">
+              <button onClick={onOpenOffers} className="flex items-center gap-0.5 text-brand-600 text-xs font-semibold">
                 See all <ChevronRight className="w-3.5 h-3.5" />
               </button>
             </div>
@@ -359,8 +394,6 @@ export default function HomeScreen({ services, offers, onBookService, onOpenDino
         <div className="h-20" />
       </div>
 
-      {/* ── Bottom Nav ── */}
-      <BottomNav active={navTab} onChange={setNavTab} />
     </div>
   );
 }

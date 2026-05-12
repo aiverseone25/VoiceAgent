@@ -13,6 +13,7 @@
 const axios  = require('axios');
 const NodeCache = require('node-cache');
 const crypto = require('crypto');
+const { sanitizeTextForSpeech } = require('./speechSanitize');
 
 const TTS_ENDPOINT = 'https://texttospeech.googleapis.com/v1beta1/text:synthesize';
 
@@ -78,6 +79,8 @@ async function synthesize(text, options = {}) {
   const apiKey = process.env.GOOGLE_API_KEY;
   if (!apiKey) throw new Error('GOOGLE_API_KEY not configured');
 
+  text = sanitizeTextForSpeech(text);
+
   const voiceKey = options.voice
     || process.env.GOOGLE_TTS_VOICE
     || 'en-IN-Chirp3-HD-Aoede';
@@ -118,6 +121,7 @@ async function synthesize(text, options = {}) {
 
 // Streaming: synthesize sentence by sentence and return array of base64 chunks
 async function synthesizeStream(text, options = {}) {
+  text = sanitizeTextForSpeech(text);
   const sentences = splitSentences(text);
   if (!sentences.length) return [];
 

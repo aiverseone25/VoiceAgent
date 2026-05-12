@@ -11,24 +11,12 @@
 
 import { useCallback, useRef, useState, useEffect } from 'react';
 import axios from 'axios';
+import { sanitizeTextForSpeech } from '../utils/speechSanitize';
 
 function isAutoplayBlocked(err) {
   const name = err?.name || '';
   const msg = String(err?.message || err || '').toLowerCase();
   return name === 'NotAllowedError' || msg.includes("user didn't interact") || msg.includes('play() failed');
-}
-
-function textForSpeech(text) {
-  return String(text || '')
-    .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
-    .replace(/`([^`]+)`/g, '$1')
-    .replace(/\*\*([^*]+)\*\*/g, '$1')
-    .replace(/__([^_]+)__/g, '$1')
-    .replace(/^\s{0,3}#{1,6}\s+/gm, '')
-    .replace(/^\s{0,3}[-*+]\s+/gm, '')
-    .replace(/[*_~]{1,3}/g, '')
-    .replace(/\s+/g, ' ')
-    .trim();
 }
 
 // ── Browser TTS fallback ──────────────────────────────────────────────────────
@@ -182,7 +170,7 @@ export function useGoogleTTS() {
   }, [playAudioUrls]);
 
   const speak = useCallback(async (text, { onStart, onEnd } = {}) => {
-    const speechText = textForSpeech(text);
+    const speechText = sanitizeTextForSpeech(text);
     if (!speechText) return;
     cancel(); // stop any current speech immediately
 

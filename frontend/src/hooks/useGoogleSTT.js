@@ -7,6 +7,8 @@
  *  3. On release/stop → audio sent to Google STT Chirp 2 for high-accuracy transcription
  *  4. Falls back to Web Speech API transcript if Google fails
  *
+ *  onTranscript(text, meta) — meta.source is 'browser' (streaming finals) or 'google' (push-to-talk).
+ *
  * This gives: instant wake word response + premium accuracy for actual booking commands
  */
 
@@ -87,9 +89,9 @@ export function useGoogleSTT({ onWakeWord, onTranscript, onInterim, onRecordingC
         if (containsWakeWord(final)) {
           onWakeWord?.();
           const rest = stripWakeWord(final);
-          if (rest) onTranscript?.(rest, 0); // 0 = browser confidence
+          if (rest) onTranscript?.(rest, { source: 'browser' });
         } else {
-          onTranscript?.(final.trim(), 0);
+          onTranscript?.(final.trim(), { source: 'browser' });
         }
       }
     };
@@ -158,9 +160,9 @@ export function useGoogleSTT({ onWakeWord, onTranscript, onInterim, onRecordingC
             if (containsWakeWord(data.transcript)) {
               onWakeWord?.();
               const rest = stripWakeWord(data.transcript);
-              if (rest) onTranscript?.(rest, data.confidence);
+              if (rest) onTranscript?.(rest, { source: 'google', confidence: data.confidence });
             } else {
-              onTranscript?.(data.transcript, data.confidence);
+              onTranscript?.(data.transcript, { source: 'google', confidence: data.confidence });
             }
           }
         } catch (err) {

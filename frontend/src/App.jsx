@@ -16,6 +16,11 @@ import ProfileTabScreen  from './components/ProfileTabScreen';
 
 const GREETING = "Hi there! I'm Dino, your Urban Klean assistant — powered by AI. How can I help you today? I can book a cleaning service, find our best offers, or check your past bookings!";
 
+/** Hands-free Web Speech fires many short “final” segments — wait this long after the last one before sending. */
+const BROWSER_COALESCE_MS = 1500;
+/** After a reply finishes, wait this long to batch any dictation that arrived during the API call. */
+const BROWSER_TAIL_MS = 650;
+
 function DinoApp() {
   const { state, dispatch, sendMessage, loadServices, loadOffers, wakeUp, resetConversation } = useDino();
 
@@ -38,6 +43,18 @@ function DinoApp() {
   openRef.current = modalOpen;
   const assistantSpeakingRef = useRef(false);
 
+  const browserSpeechBufferRef = useRef('');
+  const browserSpeechTimerRef = useRef(null);
+  const voiceTurnInFlightRef = useRef(false);
+  const executeVoiceTurnRef = useRef(async (_t) => {});
+
+  const clearBrowserSpeechTimer = useCallback(() => {
+    if (browserSpeechTimerRef.current != null) {
+      clearTimeout(browserSpeechTimerRef.current);
+      browserSpeechTimerRef.current = null;
+    }
+  }, []);
+
   // ── Speak helper ──────────────────────────────────────────────────────────
   const sayAndTrack = useCallback(async (text, opts = {}) => {
     assistantSpeakingRef.current = true;
@@ -55,7 +72,7 @@ function DinoApp() {
     });
   }, [speak, dispatch]);
 
-  // ── Open Dino modal ───────────────────────────────────────────────────────
+  // ── Open Dino modal (must be above voice-turn logic — used by executeVoiceTurn) ──
   const openDino = useCallback((skipGreeting = false) => {
     setModalOpen(true);
     if (!greeted && !skipGreeting) {
@@ -69,23 +86,76 @@ function DinoApp() {
     }
   }, [greeted, sayAndTrack, dispatch]);
 
+  const scheduleBufferedVoiceFlush = useCallback((delayMs) => {
+    clearBrowserSpeechTimer();
+    browserSpeechTimerRef.current = setTimeout(() => {
+      browserSpeechTimerRef.current = null;
+
+      const tryWhenIdle = () => {
+        if (voiceTurnInFlightRef.current || assistantSpeakingRef.current) {
+          browserSpeechTimerRef.current = setTimeout(tryWhenIdle, 200);
+          return;
+        }
+        const merged = browserSpeechBufferRef.current.trim();
+        if (!merged) return;
+        browserSpeechBufferRef.current = '';
+        void executeVoiceTurnRef.current(merged);
+      };
+
+      tryWhenIdle();
+    }, delayMs);
+  }, [clearBrowserSpeechTimer]);
+
+  const executeVoiceTurn = useCallback(async (userText) => {
+    const text = String(userText || '').trim();
+    if (!text) return;
+    if (voiceTurnInFlightRef.current) {
+      browserSpeechBufferRef.current = (browserSpeechBufferRef.current + ' ' + text).trim();
+      scheduleBufferedVoiceFlush(BROWSER_TAIL_MS);
+      return;
+    }
+    voiceTurnInFlightRef.current = true;
+    try {
+      if (!openRef.current) openDino(true);
+      const reply = await sendMessage(text);
+      if (reply) await sayAndTrack(reply);
+    } finally {
+      voiceTurnInFlightRef.current = false;
+      if (browserSpeechBufferRef.current.trim())
+        scheduleBufferedVoiceFlush(BROWSER_TAIL_MS);
+    }
+  }, [openDino, sendMessage, sayAndTrack, scheduleBufferedVoiceFlush]);
+
+  executeVoiceTurnRef.current = executeVoiceTurn;
+
+  useEffect(() => () => clearBrowserSpeechTimer(), [clearBrowserSpeechTimer]);
+
   // ── Wake word detected ────────────────────────────────────────────────────
   const handleWakeWord = useCallback(() => {
     if (!openRef.current) openDino();
   }, [openDino]);
 
   // ── Transcript ready (from Web Speech or Google STT) ─────────────────────
-  const handleTranscript = useCallback(async (text, confidence) => {
+  const handleTranscript = useCallback((text, meta = {}) => {
     if (!text.trim()) return;
     if (assistantSpeakingRef.current) {
       dispatch({ type: 'SET_INTERIM', payload: '' });
       return;
     }
-    if (!openRef.current) openDino(true);
 
-    const reply = await sendMessage(text);
-    if (reply) sayAndTrack(reply);
-  }, [openDino, sendMessage, sayAndTrack]);
+    const source = meta.source || 'browser';
+
+    if (source === 'google') {
+      clearBrowserSpeechTimer();
+      browserSpeechBufferRef.current = '';
+      void executeVoiceTurn(text);
+      return;
+    }
+
+    browserSpeechBufferRef.current = (browserSpeechBufferRef.current + ' ' + text).trim();
+    const delay = voiceTurnInFlightRef.current ? BROWSER_TAIL_MS : BROWSER_COALESCE_MS;
+    scheduleBufferedVoiceFlush(delay);
+  }, [dispatch, clearBrowserSpeechTimer, executeVoiceTurn, scheduleBufferedVoiceFlush]);
 
   const handleInterim = useCallback((t) => {
     if (assistantSpeakingRef.current) return;

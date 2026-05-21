@@ -1,16 +1,2698 @@
 {
-  "customers": [],
-  "services": [],
-  "offers": [],
-  "bookings": [],
-  "conversation_sessions": [],
-  "time_slots": [],
+  "customers": [
+    {
+      "id": 1,
+      "phone": "1223456789",
+      "name": "Lokesh",
+      "email": "llp@gmail.com",
+      "address": null,
+      "created_at": "2026-05-11T05:31:21.140Z",
+      "updated_at": "2026-05-11T05:31:21.141Z"
+    },
+    {
+      "id": 2,
+      "phone": "12345-6791",
+      "name": "Lokesh",
+      "email": null,
+      "address": null,
+      "created_at": "2026-05-11T20:25:14.498Z",
+      "updated_at": "2026-05-11T20:25:14.498Z"
+    },
+    {
+      "id": 3,
+      "phone": "784-898-7286",
+      "name": "Lokesh",
+      "email": null,
+      "address": null,
+      "created_at": "2026-05-12T23:19:06.656Z",
+      "updated_at": "2026-05-12T23:19:06.656Z"
+    },
+    {
+      "id": 4,
+      "phone": "2283-4756-18",
+      "name": "Lokesh",
+      "email": null,
+      "address": null,
+      "created_at": "2026-05-14T03:29:05.926Z",
+      "updated_at": "2026-05-14T03:29:05.926Z"
+    },
+    {
+      "id": 5,
+      "phone": "789-567480",
+      "name": "Lokesh",
+      "email": null,
+      "address": null,
+      "created_at": "2026-05-14T04:50:41.208Z",
+      "updated_at": "2026-05-14T04:50:41.208Z"
+    },
+    {
+      "id": 6,
+      "phone": "72019-54-583",
+      "name": "Lovey",
+      "email": null,
+      "address": null,
+      "created_at": "2026-05-15T23:37:44.050Z",
+      "updated_at": "2026-05-15T23:37:44.050Z"
+    }
+  ],
+  "services": [
+    {
+      "id": 1,
+      "name": "Regular Home Cleaning",
+      "aliases": [
+        "home cleaning",
+        "house cleaning",
+        "flat cleaning",
+        "apartment cleaning",
+        "maid cleaning",
+        "basic cleaning"
+      ],
+      "description": "Standard home cleaning with dusting, sweeping, mopping, bathroom sanitization, and kitchen wipe-down.",
+      "category": "home",
+      "base_price": 999,
+      "duration_mins": 120,
+      "pricing_variants": {
+        "1BHK": 999,
+        "2BHK": 1499,
+        "3BHK": 1999,
+        "4BHK": 2499,
+        "Villa": 3499
+      },
+      "highlights": [
+        "Dusting all surfaces",
+        "Floor mopping and vacuuming",
+        "Bathroom sanitization",
+        "Kitchen wipe-down",
+        "Trash removal"
+      ],
+      "icon": "home",
+      "is_active": 1
+    },
+    {
+      "id": 2,
+      "name": "Premium Home Deep Cleaning",
+      "aliases": [
+        "deep cleaning",
+        "full home deep clean",
+        "complete house cleaning",
+        "festival cleaning",
+        "spring cleaning"
+      ],
+      "description": "Top-to-bottom deep cleaning for the whole home, including hard-to-reach areas and detailed scrubbing.",
+      "category": "home",
+      "base_price": 2499,
+      "duration_mins": 240,
+      "pricing_variants": {
+        "1BHK": 2499,
+        "2BHK": 2999,
+        "3BHK": 3499,
+        "4BHK": 4499,
+        "Villa": 5999
+      },
+      "highlights": [
+        "Everything in regular cleaning",
+        "Bathroom grout scrubbing",
+        "Kitchen degreasing",
+        "Balcony cleaning",
+        "Detailed dust removal"
+      ],
+      "icon": "sparkles",
+      "is_active": 1
+    },
+    {
+      "id": 3,
+      "name": "Bathroom Deep Cleaning",
+      "aliases": [
+        "bathroom cleaning",
+        "toilet cleaning",
+        "washroom cleaning",
+        "bathroom sanitization",
+        "home bathroom cleaning"
+      ],
+      "description": "Bathroom tile, grout, toilet, shower, fixture, mirror, and floor deep cleaning with disinfection.",
+      "category": "specialty",
+      "base_price": 499,
+      "duration_mins": 60,
+      "pricing_variants": {
+        "1 bathroom": 499,
+        "2 bathrooms": 849,
+        "3 bathrooms": 1149,
+        "4 bathrooms": 1399
+      },
+      "highlights": [
+        "Tile and grout scrubbing",
+        "Toilet disinfection",
+        "Fixture polishing",
+        "Mirror cleaning",
+        "Floor deep scrub"
+      ],
+      "icon": "bath",
+      "is_active": 1
+    },
+    {
+      "id": 4,
+      "name": "Kitchen Deep Cleaning",
+      "aliases": [
+        "kitchen cleaning",
+        "kitchen degreasing",
+        "chimney cleaning",
+        "hob cleaning",
+        "stove cleaning"
+      ],
+      "description": "Kitchen cleaning for countertops, stove, hob, sink, cabinet exteriors, tiles, and optional chimney cleaning.",
+      "category": "specialty",
+      "base_price": 799,
+      "duration_mins": 90,
+      "pricing_variants": {
+        "Standard": 799,
+        "With chimney": 1199,
+        "With appliances": 1499,
+        "Full kitchen": 1799
+      },
+      "highlights": [
+        "Grease removal",
+        "Hob and burner scrubbing",
+        "Sink and drain cleaning",
+        "Cabinet exterior wipe",
+        "Wall tile cleaning"
+      ],
+      "icon": "kitchen",
+      "is_active": 1
+    },
+    {
+      "id": 5,
+      "name": "Bedroom Cleaning",
+      "aliases": [
+        "bedroom cleaning",
+        "room cleaning",
+        "kids room cleaning",
+        "guest room cleaning"
+      ],
+      "description": "Bedroom dusting, floor cleaning, wardrobe exterior wipe, mirror cleaning, and linen-area sanitization.",
+      "category": "home",
+      "base_price": 399,
+      "duration_mins": 45,
+      "pricing_variants": {
+        "Per room": 399,
+        "2 rooms": 699,
+        "3 rooms": 999,
+        "4 rooms": 1299
+      },
+      "highlights": [
+        "Bedside and surface dusting",
+        "Floor vacuuming and mopping",
+        "Mirror cleaning",
+        "Wardrobe exterior wipe"
+      ],
+      "icon": "bed",
+      "is_active": 1
+    },
+    {
+      "id": 6,
+      "name": "Living Room Cleaning",
+      "aliases": [
+        "living room cleaning",
+        "hall cleaning",
+        "drawing room cleaning",
+        "lounge cleaning"
+      ],
+      "description": "Living room cleaning including sofa area dusting, TV unit wipe-down, floors, fans, and accessible surfaces.",
+      "category": "home",
+      "base_price": 499,
+      "duration_mins": 60,
+      "pricing_variants": {
+        "Standard": 499,
+        "Large": 799,
+        "With balcony": 999
+      },
+      "highlights": [
+        "TV unit wipe-down",
+        "Floor cleaning",
+        "Fan dusting",
+        "Decor surface dusting"
+      ],
+      "icon": "sofa",
+      "is_active": 1
+    },
+    {
+      "id": 7,
+      "name": "Balcony and Terrace Cleaning",
+      "aliases": [
+        "balcony cleaning",
+        "terrace cleaning",
+        "patio cleaning",
+        "outdoor cleaning"
+      ],
+      "description": "Balcony or terrace sweeping, scrubbing, railing wipe-down, drain clearing, and floor washing.",
+      "category": "specialty",
+      "base_price": 599,
+      "duration_mins": 60,
+      "pricing_variants": {
+        "Balcony": 599,
+        "Large balcony": 899,
+        "Terrace": 1499
+      },
+      "highlights": [
+        "Floor scrubbing",
+        "Railing wipe-down",
+        "Drain clearing",
+        "Cobweb removal"
+      ],
+      "icon": "balcony",
+      "is_active": 1
+    },
+    {
+      "id": 8,
+      "name": "Move-in Move-out Cleaning",
+      "aliases": [
+        "move in cleaning",
+        "move out cleaning",
+        "tenant cleaning",
+        "vacant flat cleaning",
+        "rental cleaning"
+      ],
+      "description": "Detailed vacant property cleaning before moving in or after moving out.",
+      "category": "home",
+      "base_price": 3999,
+      "duration_mins": 300,
+      "pricing_variants": {
+        "1BHK": 3999,
+        "2BHK": 4999,
+        "3BHK": 5999,
+        "4BHK": 7499,
+        "Villa": 9999
+      },
+      "highlights": [
+        "Full deep cleaning",
+        "Window tracks",
+        "Balcony cleaning",
+        "Kitchen and bathroom detailing",
+        "Post-cleaning inspection"
+      ],
+      "icon": "key",
+      "is_active": 1
+    },
+    {
+      "id": 9,
+      "name": "Post Renovation Cleaning",
+      "aliases": [
+        "post construction cleaning",
+        "renovation cleaning",
+        "paint dust cleaning",
+        "construction dust cleaning"
+      ],
+      "description": "Heavy dust removal and detailed cleaning after painting, interiors, renovation, or construction work.",
+      "category": "home",
+      "base_price": 4999,
+      "duration_mins": 360,
+      "pricing_variants": {
+        "1BHK": 4999,
+        "2BHK": 6499,
+        "3BHK": 7999,
+        "Villa": 12999
+      },
+      "highlights": [
+        "Fine dust removal",
+        "Paint mark spot cleaning",
+        "Floor scrubbing",
+        "Window and track cleaning"
+      ],
+      "icon": "tools",
+      "is_active": 1
+    },
+    {
+      "id": 10,
+      "name": "Sofa and Upholstery Cleaning",
+      "aliases": [
+        "sofa cleaning",
+        "couch cleaning",
+        "upholstery cleaning",
+        "chair cleaning",
+        "fabric sofa cleaning"
+      ],
+      "description": "Foam extraction and fabric sanitization for sofas, dining chairs, recliners, and upholstered furniture.",
+      "category": "specialty",
+      "base_price": 699,
+      "duration_mins": 90,
+      "pricing_variants": {
+        "2-seater": 699,
+        "3-seater": 899,
+        "5-seater": 1299,
+        "Recliner": 499,
+        "Chair": 299
+      },
+      "highlights": [
+        "Deep foam extraction",
+        "Stain removal",
+        "Odour treatment",
+        "Fabric sanitization",
+        "Quick-dry treatment"
+      ],
+      "icon": "sofa",
+      "is_active": 1
+    },
+    {
+      "id": 11,
+      "name": "Carpet and Rug Cleaning",
+      "aliases": [
+        "carpet cleaning",
+        "rug cleaning",
+        "mat cleaning",
+        "floor carpet cleaning"
+      ],
+      "description": "Carpet and rug shampooing, stain treatment, odour removal, and hot-water extraction.",
+      "category": "specialty",
+      "base_price": 499,
+      "duration_mins": 60,
+      "pricing_variants": {
+        "Small": 499,
+        "Medium": 799,
+        "Large": 1199,
+        "Per sq ft": 18
+      },
+      "highlights": [
+        "Shampooing",
+        "Stain treatment",
+        "Odour removal",
+        "Hot-water extraction"
+      ],
+      "icon": "carpet",
+      "is_active": 1
+    },
+    {
+      "id": 12,
+      "name": "Mattress Cleaning",
+      "aliases": [
+        "mattress cleaning",
+        "bed cleaning",
+        "mattress sanitization",
+        "dust mite cleaning"
+      ],
+      "description": "Mattress vacuuming, shampooing, dust mite treatment, and sanitization.",
+      "category": "specialty",
+      "base_price": 799,
+      "duration_mins": 60,
+      "pricing_variants": {
+        "Single": 799,
+        "Queen": 999,
+        "King": 1199
+      },
+      "highlights": [
+        "Deep vacuuming",
+        "Dust mite treatment",
+        "Stain treatment",
+        "Sanitization"
+      ],
+      "icon": "mattress",
+      "is_active": 1
+    },
+    {
+      "id": 13,
+      "name": "Curtain and Blind Cleaning",
+      "aliases": [
+        "curtain cleaning",
+        "blind cleaning",
+        "drape cleaning",
+        "window blind cleaning"
+      ],
+      "description": "On-site vacuuming and steam cleaning for curtains and blinds.",
+      "category": "specialty",
+      "base_price": 399,
+      "duration_mins": 60,
+      "pricing_variants": {
+        "Per panel": 399,
+        "Set of 4": 1299,
+        "Blinds": 599
+      },
+      "highlights": [
+        "Dust removal",
+        "Steam sanitization",
+        "Odour treatment",
+        "Gentle fabric care"
+      ],
+      "icon": "curtain",
+      "is_active": 1
+    },
+    {
+      "id": 14,
+      "name": "Window and Glass Cleaning",
+      "aliases": [
+        "window cleaning",
+        "glass cleaning",
+        "window track cleaning",
+        "balcony glass cleaning"
+      ],
+      "description": "Interior window, glass partition, mirror, and track cleaning.",
+      "category": "specialty",
+      "base_price": 599,
+      "duration_mins": 60,
+      "pricing_variants": {
+        "Small home": 599,
+        "Medium home": 999,
+        "Large home": 1499,
+        "Per glass panel": 99
+      },
+      "highlights": [
+        "Glass polishing",
+        "Track cleaning",
+        "Frame wipe-down",
+        "Streak-free finish"
+      ],
+      "icon": "window",
+      "is_active": 1
+    },
+    {
+      "id": 15,
+      "name": "Appliance Exterior Cleaning",
+      "aliases": [
+        "appliance cleaning",
+        "fridge cleaning",
+        "microwave cleaning",
+        "oven cleaning",
+        "washing machine cleaning"
+      ],
+      "description": "Exterior and accessible interior cleaning for household appliances.",
+      "category": "specialty",
+      "base_price": 399,
+      "duration_mins": 45,
+      "pricing_variants": {
+        "Refrigerator": 599,
+        "Microwave": 399,
+        "Oven": 599,
+        "Washing machine": 499,
+        "Combo": 1299
+      },
+      "highlights": [
+        "Degreasing",
+        "Exterior wipe-down",
+        "Odour treatment",
+        "Accessible interior cleaning"
+      ],
+      "icon": "appliance",
+      "is_active": 1
+    },
+    {
+      "id": 16,
+      "name": "Chimney and Exhaust Cleaning",
+      "aliases": [
+        "chimney cleaning",
+        "exhaust cleaning",
+        "kitchen chimney service",
+        "filter cleaning"
+      ],
+      "description": "Kitchen chimney filter, hood, and exhaust grease cleaning.",
+      "category": "specialty",
+      "base_price": 899,
+      "duration_mins": 75,
+      "pricing_variants": {
+        "Basic": 899,
+        "Deep": 1299,
+        "Chimney plus hob": 1699
+      },
+      "highlights": [
+        "Filter degreasing",
+        "Hood cleaning",
+        "Oil residue removal",
+        "Odour reduction"
+      ],
+      "icon": "chimney",
+      "is_active": 1
+    },
+    {
+      "id": 17,
+      "name": "Water Tank Cleaning",
+      "aliases": [
+        "water tank cleaning",
+        "tank cleaning",
+        "overhead tank cleaning",
+        "sump cleaning"
+      ],
+      "description": "Overhead tank and sump cleaning with sludge removal and disinfection.",
+      "category": "specialty",
+      "base_price": 999,
+      "duration_mins": 90,
+      "pricing_variants": {
+        "Up to 1000L": 999,
+        "1000-2000L": 1499,
+        "Sump": 1999
+      },
+      "highlights": [
+        "Sludge removal",
+        "Pressure wash",
+        "Disinfection",
+        "Safe draining"
+      ],
+      "icon": "tank",
+      "is_active": 1
+    },
+    {
+      "id": 18,
+      "name": "Floor Scrubbing and Polishing",
+      "aliases": [
+        "floor cleaning",
+        "floor scrubbing",
+        "floor polishing",
+        "tile polishing",
+        "marble polishing"
+      ],
+      "description": "Machine scrubbing and polishing for tiles, marble, granite, and stone floors.",
+      "category": "specialty",
+      "base_price": 1999,
+      "duration_mins": 180,
+      "pricing_variants": {
+        "Up to 500 sqft": 1999,
+        "500-1000 sqft": 3499,
+        "Per sq ft": 8
+      },
+      "highlights": [
+        "Machine scrubbing",
+        "Stain treatment",
+        "Polishing",
+        "Gloss finish"
+      ],
+      "icon": "floor",
+      "is_active": 1
+    },
+    {
+      "id": 19,
+      "name": "Disinfection and Sanitization",
+      "aliases": [
+        "sanitization",
+        "disinfection",
+        "virus disinfection",
+        "home sanitization",
+        "office sanitization"
+      ],
+      "description": "High-touch surface disinfection and mist sanitization for homes and offices.",
+      "category": "specialty",
+      "base_price": 1499,
+      "duration_mins": 90,
+      "pricing_variants": {
+        "1BHK": 1499,
+        "2BHK": 1999,
+        "3BHK": 2499,
+        "Office": 2999
+      },
+      "highlights": [
+        "High-touch disinfection",
+        "Mist sanitization",
+        "Child-safe chemicals",
+        "Odour-free treatment"
+      ],
+      "icon": "shield",
+      "is_active": 1
+    },
+    {
+      "id": 20,
+      "name": "Office Cleaning",
+      "aliases": [
+        "office cleaning",
+        "workplace cleaning",
+        "corporate cleaning",
+        "commercial cleaning"
+      ],
+      "description": "Office cleaning for workstations, pantry, floors, meeting rooms, and washrooms.",
+      "category": "commercial",
+      "base_price": 2999,
+      "duration_mins": 180,
+      "pricing_variants": {
+        "Up to 500 sqft": 2999,
+        "500-1000 sqft": 4499,
+        "1000-2000 sqft": 6999,
+        "Above 2000 sqft": 9999
+      },
+      "highlights": [
+        "Workstation sanitization",
+        "Common area cleaning",
+        "Pantry cleaning",
+        "Washroom cleaning",
+        "Flexible scheduling"
+      ],
+      "icon": "office",
+      "is_active": 1
+    },
+    {
+      "id": 21,
+      "name": "Clinic and Healthcare Cleaning",
+      "aliases": [
+        "clinic cleaning",
+        "healthcare cleaning",
+        "doctor clinic cleaning",
+        "medical office cleaning",
+        "booker clinic"
+      ],
+      "description": "Cleaning and disinfection for clinics, dental offices, diagnostic centers, and healthcare reception areas.",
+      "category": "commercial",
+      "base_price": 3499,
+      "duration_mins": 180,
+      "pricing_variants": {
+        "Small clinic": 3499,
+        "Medium clinic": 5499,
+        "Large clinic": 7999
+      },
+      "highlights": [
+        "Reception cleaning",
+        "Treatment room sanitization",
+        "Washroom disinfection",
+        "High-touch surface cleaning"
+      ],
+      "icon": "clinic",
+      "is_active": 1
+    },
+    {
+      "id": 22,
+      "name": "Restaurant and Cafe Cleaning",
+      "aliases": [
+        "restaurant cleaning",
+        "cafe cleaning",
+        "hotel kitchen cleaning",
+        "commercial kitchen cleaning"
+      ],
+      "description": "Dining area, kitchen, washroom, exhaust-zone, and floor cleaning for restaurants and cafes.",
+      "category": "commercial",
+      "base_price": 3999,
+      "duration_mins": 240,
+      "pricing_variants": {
+        "Cafe": 3999,
+        "Restaurant": 6999,
+        "Commercial kitchen": 8999
+      },
+      "highlights": [
+        "Dining area cleaning",
+        "Kitchen degreasing",
+        "Washroom cleaning",
+        "Floor scrubbing"
+      ],
+      "icon": "restaurant",
+      "is_active": 1
+    },
+    {
+      "id": 23,
+      "name": "Retail Store Cleaning",
+      "aliases": [
+        "shop cleaning",
+        "store cleaning",
+        "showroom cleaning",
+        "retail cleaning"
+      ],
+      "description": "Cleaning for shops, salons, boutiques, showrooms, and retail display spaces.",
+      "category": "commercial",
+      "base_price": 2499,
+      "duration_mins": 150,
+      "pricing_variants": {
+        "Small store": 2499,
+        "Showroom": 4499,
+        "Large retail": 6999
+      },
+      "highlights": [
+        "Display dusting",
+        "Glass cleaning",
+        "Floor cleaning",
+        "Trial room cleaning"
+      ],
+      "icon": "store",
+      "is_active": 1
+    },
+    {
+      "id": 24,
+      "name": "Society Common Area Cleaning",
+      "aliases": [
+        "apartment common area cleaning",
+        "society cleaning",
+        "staircase cleaning",
+        "corridor cleaning"
+      ],
+      "description": "Staircase, corridor, lobby, lift lobby, and common washroom cleaning for apartments and societies.",
+      "category": "commercial",
+      "base_price": 4999,
+      "duration_mins": 300,
+      "pricing_variants": {
+        "Small building": 4999,
+        "Medium building": 8999,
+        "Large society": 14999
+      },
+      "highlights": [
+        "Lobby cleaning",
+        "Staircase mopping",
+        "Lift lobby cleaning",
+        "Common area sanitization"
+      ],
+      "icon": "building",
+      "is_active": 1
+    },
+    {
+      "id": 25,
+      "name": "Event Cleanup",
+      "aliases": [
+        "event cleaning",
+        "party cleanup",
+        "post event cleaning",
+        "pre event cleaning"
+      ],
+      "description": "Pre-event setup cleaning and post-event trash, floor, washroom, and surface cleanup.",
+      "category": "commercial",
+      "base_price": 2999,
+      "duration_mins": 180,
+      "pricing_variants": {
+        "Small event": 2999,
+        "Medium event": 5999,
+        "Large event": 9999
+      },
+      "highlights": [
+        "Pre-event dusting",
+        "Post-event trash removal",
+        "Floor cleaning",
+        "Washroom refresh"
+      ],
+      "icon": "event",
+      "is_active": 1
+    },
+    {
+      "id": 26,
+      "name": "AC Vent and Duct Cleaning",
+      "aliases": [
+        "ac vent cleaning",
+        "duct cleaning",
+        "air vent cleaning",
+        "hvac cleaning"
+      ],
+      "description": "Accessible AC vent and duct dust removal for homes and offices.",
+      "category": "specialty",
+      "base_price": 1499,
+      "duration_mins": 90,
+      "pricing_variants": {
+        "Up to 3 vents": 1499,
+        "Up to 6 vents": 2499,
+        "Office vents": 3999
+      },
+      "highlights": [
+        "Vent dust removal",
+        "Grill cleaning",
+        "Odour reduction",
+        "Airflow improvement"
+      ],
+      "icon": "vent",
+      "is_active": 1
+    },
+    {
+      "id": 27,
+      "name": "Add-on Fan and Light Fixture Cleaning",
+      "aliases": [
+        "fan cleaning",
+        "ceiling fan cleaning",
+        "light cleaning",
+        "fixture cleaning"
+      ],
+      "description": "Add-on cleaning for ceiling fans, light fixtures, and accessible fittings.",
+      "category": "specialty",
+      "base_price": 199,
+      "duration_mins": 30,
+      "pricing_variants": {
+        "Per fan": 199,
+        "Per light fixture": 149,
+        "Combo": 499
+      },
+      "highlights": [
+        "Dust removal",
+        "Fixture wipe-down",
+        "Ladder-assisted cleaning",
+        "Add-on friendly"
+      ],
+      "icon": "fan",
+      "is_active": 1
+    }
+  ],
+  "offers": [
+    {
+      "id": 1,
+      "code": "FIRSTKLEAN",
+      "title": "First Booking Discount",
+      "description": "Get 20% off on your first Urban Klean booking.",
+      "discount_type": "percent",
+      "discount_value": 20,
+      "min_order": 500,
+      "max_discount": 500,
+      "valid_till": "2027-12-31",
+      "usage_limit": 1000,
+      "usage_count": 0,
+      "is_active": 1
+    },
+    {
+      "id": 2,
+      "code": "DEEPKLEAN15",
+      "title": "Deep Clean Special",
+      "description": "15% off on deep cleaning, move-in, or post-renovation services.",
+      "discount_type": "percent",
+      "discount_value": 15,
+      "min_order": 2000,
+      "max_discount": 750,
+      "valid_till": "2027-12-31",
+      "usage_limit": 500,
+      "usage_count": 0,
+      "is_active": 1
+    },
+    {
+      "id": 3,
+      "code": "BATHROOM99",
+      "title": "Bathroom Add-on Deal",
+      "description": "Flat 99 rupees off on bathroom deep cleaning above 499 rupees.",
+      "discount_type": "flat",
+      "discount_value": 99,
+      "min_order": 499,
+      "max_discount": 99,
+      "valid_till": "2027-12-31",
+      "usage_limit": 500,
+      "usage_count": 0,
+      "is_active": 1
+    },
+    {
+      "id": 4,
+      "code": "WEEKEND10",
+      "title": "Weekend Offer",
+      "description": "Book any weekend service and get 10% off.",
+      "discount_type": "percent",
+      "discount_value": 10,
+      "min_order": 0,
+      "max_discount": 300,
+      "valid_till": "2027-12-31",
+      "usage_limit": 9999,
+      "usage_count": 0,
+      "is_active": 1
+    }
+  ],
+  "bookings": [
+    {
+      "id": 1,
+      "booking_ref": "UKL-MP0RKN1W",
+      "customer_id": 1,
+      "service_id": 2,
+      "service_name": "Bathroom Deep Cleaning",
+      "variant": "2 Bathrooms",
+      "address": "Flat Number 101, Joseph Gorda, Hyderabad",
+      "scheduled_date": "2025-07-16",
+      "time_slot": "2:00 PM - 5:00 PM",
+      "base_amount": 849,
+      "discount_amount": 170,
+      "total_amount": 679,
+      "offer_code": "FIRSTKLEAN",
+      "notes": "First time customer. Two bathrooms deep cleaning.",
+      "status": "confirmed",
+      "payment_status": "pending",
+      "created_at": "2026-05-11T05:31:21.142Z",
+      "updated_at": "2026-05-11T05:31:21.142Z"
+    },
+    {
+      "id": 2,
+      "booking_ref": "UKL-MP1NI6TE",
+      "customer_id": 2,
+      "service_id": 3,
+      "service_name": "Bathroom Deep Cleaning",
+      "variant": "2 bathrooms",
+      "address": "12126 Joseph Gorda, Hyderabad",
+      "scheduled_date": "2026-05-13",
+      "time_slot": "04:00 PM - 07:00 PM",
+      "base_amount": 849,
+      "discount_amount": 99,
+      "total_amount": 750,
+      "offer_code": "BATHROOM99",
+      "notes": null,
+      "status": "confirmed",
+      "payment_status": "pending",
+      "created_at": "2026-05-11T20:25:14.500Z",
+      "updated_at": "2026-05-11T20:25:14.500Z"
+    },
+    {
+      "id": 3,
+      "booking_ref": "UKL-MP395MZK",
+      "customer_id": 3,
+      "service_id": 3,
+      "service_name": "Bathroom Deep Cleaning",
+      "variant": "2 bathrooms",
+      "address": "KPHB Colony, Hyderabad",
+      "scheduled_date": "2026-05-14",
+      "time_slot": "4 PM - 7 PM",
+      "base_amount": 849,
+      "discount_amount": 170,
+      "total_amount": 679,
+      "offer_code": "FIRSTKLEAN",
+      "notes": null,
+      "status": "confirmed",
+      "payment_status": "pending",
+      "created_at": "2026-05-12T23:19:06.657Z",
+      "updated_at": "2026-05-12T23:19:06.657Z"
+    },
+    {
+      "id": 4,
+      "booking_ref": "UKL-MP4XIZ5Y",
+      "customer_id": 4,
+      "service_id": 3,
+      "service_name": "Bathroom Deep Cleaning",
+      "variant": "2 bathrooms",
+      "address": "1756 KPHB Colony, Hyderabad",
+      "scheduled_date": "2026-05-15",
+      "time_slot": "4:00 PM - 7:00 PM",
+      "base_amount": 849,
+      "discount_amount": 99,
+      "total_amount": 750,
+      "offer_code": "BATHROOM99",
+      "notes": null,
+      "status": "confirmed",
+      "payment_status": "pending",
+      "created_at": "2026-05-14T03:29:05.928Z",
+      "updated_at": "2026-05-14T03:29:05.928Z"
+    },
+    {
+      "id": 5,
+      "booking_ref": "UKL-MP50FWE0",
+      "customer_id": 5,
+      "service_id": 3,
+      "service_name": "Bathroom Deep Cleaning",
+      "variant": "2 bathrooms",
+      "address": "1745 KPHB Colony, Hyderabad",
+      "scheduled_date": "2026-05-15",
+      "time_slot": "04:00 PM - 07:00 PM",
+      "base_amount": 849,
+      "discount_amount": 170,
+      "total_amount": 679,
+      "offer_code": "FIRSTKLEAN",
+      "notes": null,
+      "status": "confirmed",
+      "payment_status": "pending",
+      "created_at": "2026-05-14T04:50:41.209Z",
+      "updated_at": "2026-05-14T04:50:41.209Z"
+    },
+    {
+      "id": 6,
+      "booking_ref": "UKL-MP7K556A",
+      "customer_id": 6,
+      "service_id": 2,
+      "service_name": "Villa Home Cleaning and Bathroom Deep Cleaning",
+      "variant": "Villa, 4 Bathrooms",
+      "address": "13762 French Creek Lane, Hyderabad",
+      "scheduled_date": "2026-05-19",
+      "time_slot": "09:00 AM - 12:00 PM",
+      "base_amount": 4898,
+      "discount_amount": 735,
+      "total_amount": 4163,
+      "offer_code": "DEEPKLEAN15",
+      "notes": null,
+      "status": "confirmed",
+      "payment_status": "pending",
+      "created_at": "2026-05-15T23:37:44.052Z",
+      "updated_at": "2026-05-15T23:37:44.052Z"
+    }
+  ],
+  "conversation_sessions": [
+    {
+      "id": 1,
+      "session_id": "f5411f94-14b7-40b3-a02b-c96a9f33c9b2",
+      "customer_phone": null,
+      "messages": [],
+      "state": "active",
+      "created_at": "2026-05-11T05:09:18.033Z",
+      "updated_at": "2026-05-11T05:09:18.033Z"
+    },
+    {
+      "id": 2,
+      "session_id": "5bef3635-0140-4725-b69c-55985f6a8e5e",
+      "customer_phone": null,
+      "messages": [
+        {
+          "role": "user",
+          "content": "hair"
+        },
+        {
+          "role": "assistant",
+          "content": "I think there might be a little mix-up! You've reached **Urban Klean**, Hyderabad's premium **cleaning service**. We specialize in home cleaning, deep cleaning, commercial spaces, and more — but hair services are not something we cover, I'm afraid!\n\nIs there anything I can help you with on the cleaning front? Whether it's a sparkling home or a spotless office, we've got you covered! 😊"
+        },
+        {
+          "role": "user",
+          "content": "we specialize in home cleaning deep cleaning commercial spaces and more but hair services are not something we cover I'm afraid is there anything I can help you with on the cleaning front whether it's a sparkling home or a spotless office"
+        },
+        {
+          "role": "assistant",
+          "content": "Ha, it sounds like you're repeating back what I just said! Did my response come through a bit garbled on your end?\n\nNo worries at all! I'm Dino from Urban Klean. How can I help you today? Are you looking to book a cleaning service, check an existing booking, or something else?"
+        },
+        {
+          "role": "user",
+          "content": "did my response come through a bit garbage on your end"
+        },
+        {
+          "role": "assistant",
+          "content": "Ha, not garbage — garbled! Though I completely understand if it sounded that way sometimes! 😄\n\nI'm Dino from Urban Klean, and I'm here to help! So tell me, what can I do for you today? Are you looking to book a cleaning service or maybe check on an existing booking?"
+        }
+      ],
+      "state": "active",
+      "created_at": "2026-05-11T05:10:46.034Z",
+      "updated_at": "2026-05-11T05:12:01.806Z"
+    },
+    {
+      "id": 3,
+      "session_id": "4c60d7b1-21da-46a4-b1be-529a4d39884f",
+      "customer_phone": null,
+      "messages": [
+        {
+          "role": "user",
+          "content": "hey Daniel"
+        },
+        {
+          "role": "assistant",
+          "content": "Hey there! I think you might have me mixed up — I'm **Dino**, your friendly assistant from Urban Klean! No worries at all though. 😊\n\nWelcome to Urban Klean — *Clean Spaces, Happy Places!* How can I help you today? Whether it's booking a cleaning service, checking on an existing booking, or just finding out what we offer, I'm right here for you!"
+        }
+      ],
+      "state": "idle",
+      "created_at": "2026-05-11T05:13:33.900Z",
+      "updated_at": "2026-05-11T05:14:51.657Z"
+    },
+    {
+      "id": 4,
+      "session_id": "83538941-a82c-4f0b-b8ce-ef8c1265f909",
+      "customer_phone": null,
+      "messages": [
+        {
+          "role": "user",
+          "content": "Booker Clinic"
+        },
+        {
+          "role": "assistant",
+          "content": "I'm sorry, I didn't quite catch that! This is Dino from Urban Klean, your premium cleaning service in Hyderabad.\n\nAre you looking to book a cleaning service, check an existing booking, or maybe find out about our latest offers? How can I help you today?"
+        },
+        {
+          "role": "user",
+          "content": "in service"
+        },
+        {
+          "role": "assistant",
+          "content": "Hmm, it seems I'm having a little trouble fetching our services list right now. Let me try that once more, or you can also check out our full menu at urbanklean.in.\n\nCould you tell me what kind of cleaning you're looking for — is it for your home, office, or something specific like sofa or carpet cleaning? That way I can help you better!"
+        },
+        {
+          "role": "user",
+          "content": "home bathroom cleaning"
+        },
+        {
+          "role": "assistant",
+          "content": "It seems our service list isn't loading up at the moment — sorry about that! Here's what I'd suggest — you can browse all our services at **urbanklean.in**, or call us directly at **1800-XXX-XXXX** and our team will sort you out right away.\n\nIs there anything else I can help you with in the meantime?"
+        },
+        {
+          "role": "user",
+          "content": "no thank you"
+        },
+        {
+          "role": "assistant",
+          "content": "I'm sorry, I'm having a bit of trouble loading our services right now. But no worries — you can visit us at urbanklean.in or call our toll-free number 1800-XXX-XXXX anytime between 8 AM and 8 PM, and our team will be happy to help you book a bathroom cleaning service!\n\nThank you for reaching out to Urban Klean. Clean Spaces, Happy Places! Have a wonderful day! 😊"
+        }
+      ],
+      "state": "active",
+      "created_at": "2026-05-11T05:16:00.595Z",
+      "updated_at": "2026-05-11T05:17:51.539Z"
+    },
+    {
+      "id": 5,
+      "session_id": "06ac45ac-e325-4615-ba8b-225fa5c351a4",
+      "customer_phone": null,
+      "messages": [
+        {
+          "role": "user",
+          "content": "head I know"
+        },
+        {
+          "role": "assistant",
+          "content": "It seems like your message may have gotten cut off! No worries at all. 😊\n\nWelcome to **Urban Klean** — Clean Spaces, Happy Places! I'm Dino, your cleaning assistant.\n\nHow can I help you today? Are you looking to book a cleaning service, check on an existing booking, or maybe find out about our latest offers?"
+        }
+      ],
+      "state": "active",
+      "created_at": "2026-05-11T05:20:03.768Z",
+      "updated_at": "2026-05-11T05:20:06.464Z"
+    },
+    {
+      "id": 6,
+      "session_id": "737b35d2-bcb8-4726-a40a-23f9af341e6e",
+      "customer_phone": null,
+      "messages": [
+        {
+          "role": "user",
+          "content": "cleaning service"
+        },
+        {
+          "role": "assistant",
+          "content": "We have a great range of services at Urban Klean! We cover home cleaning, specialty cleaning, and commercial cleaning. Let me give you a quick overview.\n\nFor homes, we have Regular Home Cleaning starting at nine ninety-nine rupees, Premium Deep Cleaning from twenty-four ninety-nine, and specialty services like bathroom, kitchen, sofa, mattress cleaning, and a lot more. For commercial spaces, we handle offices, clinics, restaurants, and even society common areas.\n\nSo what kind of cleaning are you looking for today? Is it for your home, or a commercial space?"
+        },
+        {
+          "role": "user",
+          "content": "home"
+        },
+        {
+          "role": "assistant",
+          "content": "We have some wonderful options for home cleaning! Here's a quick rundown.\n\nRegular Home Cleaning starts at nine ninety-nine rupees — great for everyday maintenance. Premium Deep Cleaning starts at twenty-four ninety-nine and covers everything top to bottom. We also have Bedroom Cleaning from three ninety-nine, Living Room Cleaning from four ninety-nine, and specialty services like Move-in Move-out Cleaning and Post Renovation Cleaning as well.\n\nWhich of these sounds right for you? And what's the size of your home — is it a one, two, or three BHK?"
+        },
+        {
+          "role": "user",
+          "content": "what are the top selling cleaning service"
+        },
+        {
+          "role": "assistant",
+          "content": "Great news! Based on our most popular services, here are the top three that our customers in Hyderabad absolutely love.\n\nNumber one is Regular Home Cleaning — our bestseller! Starting at just nine ninety-nine rupees, it covers dusting, mopping, bathroom sanitization, and kitchen wipe-down. Perfect for weekly or monthly maintenance.\n\nNumber two is Premium Home Deep Cleaning — a thorough top-to-bottom clean starting at twenty-four ninety-nine. Customers love this for a seasonal refresh or before a special occasion.\n\nAnd number three is Move-in Move-out Cleaning — ideal if you're shifting homes, starting at thirty-nine ninety-nine for a one BHK.\n\nWhich one catches your interest? I can also check for any active offers to get you a great deal!"
+        },
+        {
+          "role": "user",
+          "content": "to be Health Care bathroom cleaning"
+        },
+        {
+          "role": "assistant",
+          "content": "Great choice! Our Bathroom Deep Cleaning service is perfect for a healthy and hygienic space.\n\nIt covers tile and grout scrubbing, toilet disinfection, fixture polishing, mirror cleaning, and a deep floor scrub — all done with proper sanitization. Takes about sixty minutes per bathroom.\n\nPricing is really affordable too! One bathroom is four ninety-nine rupees, two bathrooms are eight forty-nine, three bathrooms are eleven forty-nine, and four bathrooms are thirteen ninety-nine.\n\nHow many bathrooms would you like cleaned? And shall I check for any offers available on this service?"
+        },
+        {
+          "role": "user",
+          "content": "bathroom"
+        },
+        {
+          "role": "assistant",
+          "content": "Got all the details! Here's what we have for Bathroom Deep Cleaning.\n\nOne bathroom is four ninety-nine rupees, two bathrooms are eight forty-nine, three bathrooms are eleven forty-nine, and four or more bathrooms are thirteen ninety-nine. Each session takes about sixty minutes per bathroom and covers tile scrubbing, toilet disinfection, fixture polishing, mirror cleaning, and floor deep scrub.\n\nAnd great news — we have a special offer just for this! Use code BATHROOM99 and get a flat ninety-nine rupees off on your booking. If it's your first time with Urban Klean, you also get twenty percent off with code FIRSTKLEAN!\n\nHow many bathrooms would you like cleaned? And is this your first booking with us?"
+        },
+        {
+          "role": "user",
+          "content": "two bathrooms and yes first time"
+        },
+        {
+          "role": "assistant",
+          "content": "Fantastic! The FIRSTKLEAN offer is valid and you save one seventy rupees! So your total comes down to just six seventy-nine rupees for two bathrooms. That's a great deal for your first booking!\n\nNow let's get you scheduled. What date would you prefer for the cleaning? And may I know your name please?"
+        },
+        {
+          "role": "user",
+          "content": "tomorrow and my name is lokesh"
+        },
+        {
+          "role": "assistant",
+          "content": "Great news, Lokesh! We have plenty of slots available for tomorrow, Wednesday July 16th. Here are the options.\n\nEight AM to eleven AM, nine AM to twelve PM, eleven AM to two PM, one PM to four PM, two PM to five PM, and four PM to seven PM.\n\nWhich time slot works best for you?"
+        },
+        {
+          "role": "user",
+          "content": "2:05 p.m."
+        },
+        {
+          "role": "assistant",
+          "content": "Sure Lokesh! The closest available slot to that time would be two PM to five PM. Does that work for you?"
+        },
+        {
+          "role": "user",
+          "content": "yes"
+        },
+        {
+          "role": "assistant",
+          "content": "Perfect! And what's the address where you'd like the cleaning done, Lokesh?"
+        },
+        {
+          "role": "user",
+          "content": "114 Hyderabad"
+        },
+        {
+          "role": "assistant",
+          "content": "Could you share a bit more detail on the address, Lokesh? Like the flat number, building name, area, and landmark if any? That helps our team find you easily!"
+        },
+        {
+          "role": "user",
+          "content": "Joseph Gorda"
+        },
+        {
+          "role": "assistant",
+          "content": "I'm sorry Lokesh, I didn't quite catch that. Could you please spell out or repeat your full address? Something like your flat number, building or apartment name, and the area or locality in Hyderabad would be really helpful!"
+        },
+        {
+          "role": "user",
+          "content": "flight number 101"
+        },
+        {
+          "role": "assistant",
+          "content": "Got it! So the address is Flat Number 101, Joseph Gorda, Hyderabad. Is that correct, Lokesh?"
+        },
+        {
+          "role": "user",
+          "content": "yes"
+        },
+        {
+          "role": "assistant",
+          "content": "Perfect! And could I get your phone number and email address, Lokesh? That's so we can send you the booking confirmation."
+        },
+        {
+          "role": "user",
+          "content": "1 2 3 4 5 6 7 8 9"
+        },
+        {
+          "role": "assistant",
+          "content": "That number seems a bit short, Lokesh. Could you please share a 10-digit mobile number so we can reach you for the booking?"
+        },
+        {
+          "role": "user",
+          "content": "1 2 2 3 4 5 6 7 8 9"
+        },
+        {
+          "role": "assistant",
+          "content": "Got it! Let me confirm all your booking details before we proceed.\n\nCustomer name is Lokesh, phone number is 1223456789, service is Bathroom Deep Cleaning for two bathrooms, date is tomorrow July 16th, time slot is two PM to five PM, address is Flat Number 101, Joseph Gorda, Hyderabad. The base amount is eight forty-nine rupees, discount with FIRSTKLEAN is one seventy rupees, and the total is six seventy-nine rupees.\n\nDoes everything look correct? And could I also get your email address for the confirmation?"
+        },
+        {
+          "role": "user",
+          "content": "llp@gmail.com"
+        },
+        {
+          "role": "assistant",
+          "content": "Perfect, Lokesh! Let me confirm everything one final time before I create your booking.\n\nCustomer name: Lokesh, phone: 1223456789, email: llp@gmail.com, service: Bathroom Deep Cleaning for two bathrooms, date: tomorrow July 16th, time slot: two PM to five PM, address: Flat Number 101, Joseph Gorda, Hyderabad. Base amount: eight forty-nine rupees, discount: one seventy rupees, total payable: six seventy-nine rupees with offer code FIRSTKLEAN.\n\nShall I go ahead and confirm this booking?"
+        },
+        {
+          "role": "user",
+          "content": "yes"
+        },
+        {
+          "role": "assistant",
+          "content": "Your booking is confirmed, Lokesh! 🎉\n\nYour booking reference number is UKL-MP0RKN1W. Please save this for future reference. A confirmation has also been sent to llp@gmail.com.\n\nOur team will be at your place tomorrow, July 16th between two PM and five PM. Total payable is six seventy-nine rupees.\n\nThank you for choosing Urban Klean, Lokesh! Clean Spaces, Happy Places! Is there anything else I can help you with?"
+        },
+        {
+          "role": "user",
+          "content": "make the payment"
+        },
+        {
+          "role": "assistant",
+          "content": "Sure Lokesh! The total amount payable is six seventy-nine rupees for your Bathroom Deep Cleaning booking.\n\nYou can make the payment through UPI, credit or debit card, or net banking on our website urbanklean.in using your booking reference number UKL-MP0RKN1W. You can also pay directly to our team at the time of service.\n\nIs there anything else I can help you with?"
+        },
+        {
+          "role": "user",
+          "content": "no thank you"
+        },
+        {
+          "role": "assistant",
+          "content": "Thank you so much, Lokesh! It was a pleasure assisting you today. We look forward to giving your bathrooms a sparkling clean tomorrow! Have a wonderful day and remember — Clean Spaces, Happy Places! 😊"
+        }
+      ],
+      "state": "active",
+      "created_at": "2026-05-11T05:22:03.507Z",
+      "updated_at": "2026-05-11T05:32:32.434Z"
+    },
+    {
+      "id": 7,
+      "session_id": "ecef7a64-276f-4d1c-8437-0b0000e0c6aa",
+      "customer_phone": null,
+      "messages": [
+        {
+          "role": "user",
+          "content": "book a service"
+        },
+        {
+          "role": "assistant",
+          "content": "Welcome to Urban Klean — Clean Spaces, Happy Places! I'm Dino, and I'm here to help you today.\n\nI'd love to get your booking sorted! Could I start by getting your name and what kind of cleaning service you're looking for? For example, is it home cleaning, sofa or carpet cleaning, office cleaning, or something else?"
+        }
+      ],
+      "state": "active",
+      "created_at": "2026-05-11T05:38:27.172Z",
+      "updated_at": "2026-05-11T05:38:29.630Z"
+    },
+    {
+      "id": 8,
+      "session_id": "afeea899-1440-4339-80c0-13eb912ba840",
+      "customer_phone": null,
+      "messages": [
+        {
+          "role": "user",
+          "content": "book a bathroom cleaning"
+        },
+        {
+          "role": "assistant",
+          "content": "Got it! Our Bathroom Deep Cleaning service covers tiles, grout, toilet disinfection, fixture polishing, mirrors, and floors — and it takes about an hour.\n\nHere are the pricing options based on the number of bathrooms:\n\n1 bathroom is four ninety-nine rupees, 2 bathrooms is eight forty-nine, 3 bathrooms is eleven forty-nine, and 4 bathrooms is thirteen ninety-nine.\n\nHow many bathrooms would you like cleaned?"
+        },
+        {
+          "role": "user",
+          "content": "two bathrooms"
+        },
+        {
+          "role": "assistant",
+          "content": "Great choice! Before I lock in the details, may I know your name and phone number?"
+        },
+        {
+          "role": "user",
+          "content": "do you have any offers"
+        },
+        {
+          "role": "assistant",
+          "content": "We have some great offers running right now! Here are the ones that apply to your booking:\n\nFirst is **BATHROOM99** — flat ninety-nine rupees off on bathroom deep cleaning, which applies directly to your order of eight forty-nine rupees. Second is **FIRSTKLEAN** — twenty percent off if this is your first booking with us. And third is **WEEKEND10** — ten percent off if you book for a weekend slot.\n\nThe best deal for you would be FIRSTKLEAN if this is your first booking — that saves you a hundred and seventy rupees! Shall I apply that? And could I also get your name and phone number so we can check your booking history?"
+        }
+      ],
+      "state": "active",
+      "created_at": "2026-05-11T05:43:19.133Z",
+      "updated_at": "2026-05-11T05:44:12.903Z"
+    },
+    {
+      "id": 9,
+      "session_id": "e6991eb2-de76-4747-8dcf-da16c45e83b0",
+      "customer_phone": null,
+      "messages": [
+        {
+          "role": "user",
+          "content": "check my passbooking"
+        },
+        {
+          "role": "assistant",
+          "content": "Let me pull up your booking history right away! Could you please share your **registered phone number** with me? I'll look it up for you."
+        },
+        {
+          "role": "user",
+          "content": "book a new bathroom service"
+        },
+        {
+          "role": "assistant",
+          "content": "Got it! We have our **Bathroom Deep Cleaning** service available. It includes tile and grout scrubbing, toilet disinfection, fixture polishing, mirror cleaning, and a full floor deep scrub.\n\nHere's the pricing based on the number of bathrooms:\n\n- 1 bathroom — four ninety-nine rupees\n- 2 bathrooms — eight forty-nine rupees\n- 3 bathrooms — eleven forty-nine rupees\n- 4 bathrooms — thirteen ninety-nine rupees\n\nHow many bathrooms would you like cleaned?"
+        },
+        {
+          "role": "user",
+          "content": "two bathrooms"
+        },
+        {
+          "role": "assistant",
+          "content": "Perfect! So for 2 bathrooms, the price is eight forty-nine rupees. And great news — I can see a special offer just for bathroom cleaning! The code **BATHROOM99** gives you a flat ninety-nine rupees off, bringing your total down to just seven fifty rupees!\n\nNow, what date would you prefer for the cleaning? I'll check availability right away!"
+        },
+        {
+          "role": "user",
+          "content": "tomorrow"
+        },
+        {
+          "role": "assistant",
+          "content": "Let me check what's available for you tomorrow! One moment please.\n\nWhat's today's date? I want to make sure I check the right day for you. Could you confirm today's date, or shall I assume it's **June 19th, 2025**, making tomorrow **June 20th, 2025**?"
+        }
+      ],
+      "state": "active",
+      "created_at": "2026-05-11T05:46:00.948Z",
+      "updated_at": "2026-05-11T05:47:28.574Z"
+    },
+    {
+      "id": 10,
+      "session_id": "8a10bdfc-8b8d-4fb3-909d-6a6993832278",
+      "customer_phone": null,
+      "messages": [
+        {
+          "role": "user",
+          "content": "heading"
+        },
+        {
+          "role": "assistant",
+          "content": "Welcome to **Urban Klean!** 🌟\n\nI'm Dino, your cleaning assistant. Clean Spaces, Happy Places — that's our promise!\n\nHow can I help you today? Whether it's booking a cleaning service, checking on an existing booking, or finding out about our latest offers — I'm here for you!"
+        },
+        {
+          "role": "user",
+          "content": "book a cleaning service"
+        },
+        {
+          "role": "assistant",
+          "content": "We've got a great range of services! Here's a quick overview:\n\nFor **home cleaning**, we have Regular Home Cleaning, Premium Deep Cleaning, Bedroom, Living Room, and Move-in Move-out Cleaning.\n\nFor **specialty services**, we cover Bathrooms, Kitchen, Sofa, Carpet, Mattress, Windows, Appliances, and more.\n\nWe also have **commercial services** like Office Cleaning, Clinic, Restaurant, and Society Cleaning.\n\nWhich type of service sounds right for you? Or if you have something specific in mind, just tell me!"
+        },
+        {
+          "role": "user",
+          "content": "bathroom cleaning for two bhk"
+        },
+        {
+          "role": "assistant",
+          "content": "For a 2 BHK, that typically means 2 bathrooms, right? Our **Bathroom Deep Cleaning** for 2 bathrooms is priced at **eight forty-nine rupees**. It covers tile and grout scrubbing, toilet disinfection, fixture polishing, mirror cleaning, and a full floor deep scrub.\n\nDoes that work for you, or would you like a different number of bathrooms?"
+        },
+        {
+          "role": "user",
+          "content": "yes"
+        },
+        {
+          "role": "assistant",
+          "content": "Great news! We have a special offer just for bathroom cleaning — **BATHROOM99** gives you a flat 99 rupees off, bringing your total to just **seven fifty rupees** for 2 bathrooms!\n\nNow, what date would you like to schedule the cleaning? And do you have a preferred time?"
+        }
+      ],
+      "state": "active",
+      "created_at": "2026-05-11T20:11:25.406Z",
+      "updated_at": "2026-05-11T20:13:03.142Z"
+    },
+    {
+      "id": 11,
+      "session_id": "8526e6ef-0788-468d-9170-40a946feb214",
+      "customer_phone": null,
+      "messages": [
+        {
+          "role": "user",
+          "content": "hey I know"
+        },
+        {
+          "role": "assistant",
+          "content": "It looks like your message got cut off there! No worries. 😊\n\nHi, welcome to **Urban Klean**! I'm Dino, your cleaning assistant. How can I help you today?"
+        },
+        {
+          "role": "user",
+          "content": "book a bathroom cleaning for two bathrooms"
+        },
+        {
+          "role": "assistant",
+          "content": "Got it! Our **Bathroom Deep Cleaning** for 2 bathrooms is priced at **eight forty-nine rupees**. It covers tile and grout scrubbing, toilet disinfection, fixture polishing, and a full floor deep scrub.\n\nNow, what date would you like to schedule this for?"
+        },
+        {
+          "role": "user",
+          "content": "tomorrow"
+        },
+        {
+          "role": "assistant",
+          "content": "Great news! We have plenty of slots open for tomorrow, Wednesday the 13th. Here are your options:\n\n8 to 11 AM, 9 AM to noon, 11 AM to 2 PM, 1 to 4 PM, 2 to 5 PM, or 4 to 7 PM.\n\nWhich time works best for you?"
+        },
+        {
+          "role": "user",
+          "content": "4:00 p.m."
+        },
+        {
+          "role": "assistant",
+          "content": "Perfect! The 4 to 7 PM slot is confirmed for tomorrow. Bathroom Deep Cleaning for 2 bathrooms comes to **eight forty-nine rupees**.\n\nNow, could I get your name, phone number, and the service address?"
+        },
+        {
+          "role": "user",
+          "content": "location"
+        },
+        {
+          "role": "assistant",
+          "content": "Sure! What's the address where you'd like the cleaning done?"
+        }
+      ],
+      "state": "active",
+      "created_at": "2026-05-11T20:13:22.470Z",
+      "updated_at": "2026-05-11T20:15:03.095Z"
+    },
+    {
+      "id": 12,
+      "session_id": "461a95a0-dba5-43c0-9cae-2965442f77e3",
+      "customer_phone": null,
+      "messages": [
+        {
+          "role": "user",
+          "content": "find the best offers"
+        },
+        {
+          "role": "assistant",
+          "content": "Great news — we have four awesome offers running right now!\n\nFirst is **FIRSTKLEAN** — twenty percent off your first booking, up to five hundred rupees off. Second is **DEEPKLEAN15** — fifteen percent off on deep cleaning or move-in services, up to seven fifty off. Third is **BATHROOM99** — a flat ninety-nine rupees off on bathroom deep cleaning. And fourth is **WEEKEND10** — ten percent off on any weekend booking, up to three hundred rupees off.\n\nWould you like to book a service and apply one of these offers?"
+        }
+      ],
+      "state": "active",
+      "created_at": "2026-05-11T20:19:43.268Z",
+      "updated_at": "2026-05-11T20:19:49.371Z"
+    },
+    {
+      "id": 13,
+      "session_id": "e6030925-5919-4f91-9946-8453f2dcc2c0",
+      "customer_phone": null,
+      "messages": [
+        {
+          "role": "user",
+          "content": "find the best offers"
+        },
+        {
+          "role": "assistant",
+          "content": "Great news — we have four awesome offers right now!\n\nFirst, **FIRSTKLEAN** — twenty percent off your first booking, up to five hundred rupees. Perfect if you're new to Urban Klean!\n\nSecond, **DEEPKLEAN15** — fifteen percent off on deep cleaning, move-in, or post-renovation services, up to seven fifty rupees, on orders above two thousand rupees.\n\nThird, **BATHROOM99** — flat ninety-nine rupees off on bathroom deep cleaning above four ninety-nine rupees.\n\nAnd fourth, **WEEKEND10** — ten percent off on any service booked for the weekend, up to three hundred rupees.\n\nWould you like to book a service and use one of these offers? I can help you find the best one for your needs!"
+        },
+        {
+          "role": "user",
+          "content": "book a bathroom cleaning for two bathrooms"
+        },
+        {
+          "role": "assistant",
+          "content": "Great! So for two bathrooms, the price comes to **eight forty-nine rupees**. That includes tile and grout scrubbing, toilet disinfection, fixture polishing, mirror cleaning, and a deep floor scrub!\n\nAnd the good news — you can use **BATHROOM99** to get a flat ninety-nine rupees off, bringing it down to just **seven fifty rupees**!\n\nTo get you booked, could I get your **name, phone number, and service address** please?"
+        },
+        {
+          "role": "user",
+          "content": "name lokesh phone number 12345-6791 address"
+        },
+        {
+          "role": "assistant",
+          "content": "Let me pull up service details and check for active offers while we chat!\n\nIt looks like you started sharing your address but it got cut off there, Lokesh! Could you please share your complete service address so I can get everything set up for you?"
+        },
+        {
+          "role": "user",
+          "content": "12126 Joseph Gorda Hyderabad"
+        },
+        {
+          "role": "assistant",
+          "content": "Perfect, Lokesh! Got all your details. Now, what date would you like to schedule the bathroom cleaning?"
+        },
+        {
+          "role": "user",
+          "content": "tomorrow"
+        },
+        {
+          "role": "assistant",
+          "content": "Great news, Lokesh! We have plenty of slots available for tomorrow, Wednesday the 13th. Here are your options:\n\nEight to eleven AM, nine to twelve PM, eleven AM to two PM, one to four PM, two to five PM, or four to seven PM.\n\nWhich time works best for you?"
+        },
+        {
+          "role": "user",
+          "content": "4:00 p.m."
+        },
+        {
+          "role": "assistant",
+          "content": "Here's a summary of your booking, Lokesh:\n\nService is Bathroom Deep Cleaning for two bathrooms. Date is tomorrow, Wednesday the 13th, from four to seven PM. Address is 12126 Joseph Gorda, Hyderabad. Offer code BATHROOM99 applied — you save ninety-nine rupees! Total amount is seven fifty rupees.\n\nShall I confirm this booking and proceed to payment?"
+        },
+        {
+          "role": "user",
+          "content": "yes"
+        },
+        {
+          "role": "assistant",
+          "content": "Your booking is confirmed, Lokesh! 🎉\n\nYour reference number is **UKL-MP1NI6TE** — please save this for future reference. Our team will be at 12126 Joseph Gorda tomorrow at four PM sharp!\n\nPlease have seven fifty rupees ready for payment at the time of service. Thank you for choosing Urban Klean — Clean Spaces, Happy Places! 😊"
+        },
+        {
+          "role": "user",
+          "content": "I want to make payment now"
+        },
+        {
+          "role": "assistant",
+          "content": "That's great, Lokesh! Unfortunately, I'm not able to process payments directly through voice right now. Here are your options:\n\nYou can visit **urbanklean.in** and enter your booking reference **UKL-MP1NI6TE** to pay online. Or you can call us at **1800-XXX-XXXX** and our team will assist you with payment right away!\n\nIs there anything else I can help you with?"
+        },
+        {
+          "role": "user",
+          "content": "no thank you"
+        },
+        {
+          "role": "assistant",
+          "content": "Thank you so much, Lokesh! Have a wonderful day and we look forward to seeing you tomorrow. Clean Spaces, Happy Places! 😊"
+        }
+      ],
+      "state": "active",
+      "created_at": "2026-05-11T20:21:40.370Z",
+      "updated_at": "2026-05-11T20:26:24.887Z"
+    },
+    {
+      "id": 14,
+      "session_id": "f539884b-662b-46be-81b4-7255b74dfa24",
+      "customer_phone": null,
+      "messages": [
+        {
+          "role": "user",
+          "content": "hair"
+        },
+        {
+          "role": "assistant",
+          "content": "I'm sorry, I didn't quite catch that! This is Dino from Urban Klean, your premium cleaning service in Hyderabad. Could you say that again or let me know how I can help you today? Whether it's booking a cleaning service, checking offers, or anything else — I'm all ears!"
+        },
+        {
+          "role": "user",
+          "content": "find me the best offers for today"
+        },
+        {
+          "role": "assistant",
+          "content": "Great news — we have some awesome offers running right now!\n\nFirst, if this is your first booking with us, you get **20% off** using code FIRSTKLEAN — up to five hundred rupees off, on orders above five hundred rupees.\n\nSecond, for deep cleaning, move-in, or post-renovation services, use **DEEPKLEAN15** for 15% off — up to seven fifty off, on orders above two thousand rupees.\n\nThird, there's a flat **99 rupees off** on bathroom deep cleaning with code BATHROOM99, on orders above four ninety-nine.\n\nAnd finally, this weekend you can save **10% on any service** with code WEEKEND10 — up to three hundred rupees off!\n\nWould you like to book a service and apply one of these offers?"
+        },
+        {
+          "role": "user",
+          "content": "because address for two bathroom cleaning"
+        },
+        {
+          "role": "assistant",
+          "content": "For 2 bathrooms, our Bathroom Deep Cleaning is priced at **eight forty-nine rupees**. It covers tile and grout scrubbing, toilet disinfection, fixture polishing, mirror cleaning, and a deep floor scrub — all done in about an hour!\n\nAnd the good news — you can use code **BATHROOM99** to get 99 rupees off, bringing it down to just **seven fifty rupees**!\n\nWould you like to go ahead and book this? I'll need your name, phone number, and service address to get started!"
+        },
+        {
+          "role": "user",
+          "content": "is there any offers for kitchen cleaning"
+        },
+        {
+          "role": "assistant",
+          "content": "Great question! So our Kitchen Deep Cleaning starts at **seven ninety-nine rupees** for the Standard package, and goes up depending on what you need — with chimney, with appliances, or a full kitchen package.\n\nAs for offers, there's no specific kitchen-only deal right now. But here's what you can use — if this is your first booking, **FIRSTKLEAN** gives you 20% off, saving up to five hundred rupees! And if you book this weekend, **WEEKEND10** gives you 10% off.\n\nWould you like to go ahead and book a kitchen cleaning? I can help you pick the right package!"
+        },
+        {
+          "role": "user",
+          "content": "is there any packages for kitchen and bathrooms"
+        },
+        {
+          "role": "assistant",
+          "content": "So we don't have a specific kitchen-plus-bathroom combo package. But here's what I'd suggest — our **Premium Home Deep Cleaning** covers both kitchen degreasing and bathroom grout scrubbing, along with the entire home! It starts at just **twenty-four ninety-nine rupees for a 1BHK**.\n\nThat's honestly the best value if you want both done thoroughly. Plus, you can use **DEEPKLEAN15** to get 15% off — saving up to seven fifty rupees!\n\nWould you like to go ahead with the deep cleaning, or would you prefer to book the kitchen and bathroom separately?"
+        },
+        {
+          "role": "user",
+          "content": "I'll go with the deep cleaning"
+        },
+        {
+          "role": "assistant",
+          "content": "So here are the pricing options based on your home size — one BHK is twenty-four ninety-nine, two BHK is twenty-nine ninety-nine, three BHK is thirty-four ninety-nine, four BHK is forty-four ninety-nine, and a Villa is fifty-nine ninety-nine rupees.\n\nWhich size is your home? And to get started, could you share your name, phone number, and service address?"
+        },
+        {
+          "role": "user",
+          "content": "3bhk my name is lokesh my address is 157 kphb Colony Hyderabad"
+        },
+        {
+          "role": "assistant",
+          "content": "Great, Lokesh! Got your name and address. Could you also share your phone number so I can complete the booking?"
+        },
+        {
+          "role": "user",
+          "content": "15796-274"
+        },
+        {
+          "role": "assistant",
+          "content": "That number doesn't seem quite right, Lokesh. Could you please share your 10-digit mobile number again?"
+        },
+        {
+          "role": "user",
+          "content": "1 2 3 4 5 6 7 8 9 5"
+        },
+        {
+          "role": "assistant",
+          "content": "Got it, Lokesh! Let me check what dates work for you. When would you like to schedule the deep cleaning — today, tomorrow, or any specific date?"
+        },
+        {
+          "role": "user",
+          "content": "tomorrow"
+        },
+        {
+          "role": "assistant",
+          "content": "We have good availability for tomorrow, Wednesday 13th May! Here are the time slots —\n\nEight AM to eleven AM, nine AM to noon, eleven AM to two PM, one PM to four PM, or two PM to five PM.\n\nWhich slot works best for you, Lokesh?"
+        },
+        {
+          "role": "user",
+          "content": "4:00 p.m."
+        },
+        {
+          "role": "assistant",
+          "content": "I'm sorry Lokesh, the two PM to five PM is the last available slot for tomorrow, and four PM isn't available. Would you like to go with the two PM to five PM slot instead, or would you prefer a different date?"
+        },
+        {
+          "role": "user",
+          "content": "hello how are you"
+        },
+        {
+          "role": "assistant",
+          "content": "I'm doing great, thank you for asking, Lokesh! So coming back to your booking — shall I go ahead with the two PM to five PM slot tomorrow, Wednesday 13th May, for the three BHK Deep Cleaning at 157 KPHB Colony? Or would you prefer a different time or date?"
+        },
+        {
+          "role": "user",
+          "content": "I like you so much"
+        },
+        {
+          "role": "assistant",
+          "content": "That's very kind of you, Lokesh, thank you so much! 😊 I'm here to make things easy for you! So shall we lock in that two PM to five PM slot tomorrow for your three BHK Deep Cleaning? Just say the word and I'll get it sorted!"
+        },
+        {
+          "role": "user",
+          "content": "no cancel for today I'll come back and book later"
+        },
+        {
+          "role": "assistant",
+          "content": "No problem at all, Lokesh! Whenever you're ready, just give us a call and I'll be happy to help you book. Have a wonderful day and take care! Clean Spaces, Happy Places! 😊"
+        }
+      ],
+      "state": "active",
+      "created_at": "2026-05-12T01:26:53.586Z",
+      "updated_at": "2026-05-12T01:34:01.494Z"
+    },
+    {
+      "id": 15,
+      "session_id": "826f217d-5233-4f2a-b701-255ca449e386",
+      "customer_phone": null,
+      "messages": [
+        {
+          "role": "user",
+          "content": "hey how are you"
+        },
+        {
+          "role": "assistant",
+          "content": "Hey there! I'm doing great, thank you for asking! Welcome to Urban Klean — Clean Spaces, Happy Places! 😊\n\nI'm Dino, your Urban Klean assistant. Whether you're looking to book a cleaning service, check on an existing booking, or just find out what we offer — I'm here to help!\n\nSo, what can I do for you today?"
+        },
+        {
+          "role": "user",
+          "content": "who's here"
+        },
+        {
+          "role": "assistant",
+          "content": "I'm Dino, the virtual assistant for Urban Klean! I'm here to help you with all your cleaning needs — whether that's booking a service, checking out our offers, or anything else Urban Klean related.\n\nSo, what can I help you with today?"
+        },
+        {
+          "role": "user",
+          "content": "ask who who's really here"
+        },
+        {
+          "role": "assistant",
+          "content": "Ha, I love the energy! I'm Dino — your friendly Urban Klean assistant, and I'm all yours! 😄\n\nNow, shall we get down to business? Is there something I can help you with today — maybe a cleaning service booking or checking out our latest offers?"
+        },
+        {
+          "role": "user",
+          "content": "I know what to someone"
+        },
+        {
+          "role": "assistant",
+          "content": "I think you might have meant \"I want to book something\"? I'd love to help with that! 😊\n\nWhat kind of cleaning service are you looking for — home cleaning, something specialty, or maybe a commercial space?"
+        },
+        {
+          "role": "user",
+          "content": "no really tell me who this"
+        },
+        {
+          "role": "assistant",
+          "content": "Ha, I hear you! But I really am just Dino — Urban Klean's virtual voice assistant! That's all I am, just here to make your life a little cleaner and easier. 😄\n\nNow, is there anything I can help you with today? A cleaning service perhaps?"
+        },
+        {
+          "role": "user",
+          "content": "Nebraska versus"
+        },
+        {
+          "role": "assistant",
+          "content": "I think there might have been a little mix-up there — sounds like something got cut off! 😄\n\nI'm only able to help with Urban Klean related things like booking a cleaning service, checking offers, or tracking a booking. \n\nIs there anything like that I can assist you with today?"
+        },
+        {
+          "role": "user",
+          "content": "why would a grass cutters here"
+        },
+        {
+          "role": "assistant",
+          "content": "Great question! Urban Klean specializes in **cleaning services** — things like home cleaning, sofa and carpet cleaning, and commercial space cleaning. Grass cutting isn't something we offer, so I wouldn't be much help there!\n\nBut if you ever need your home or office sparkling clean, I'm your guy! Is there anything else I can help you with today? 😊"
+        },
+        {
+          "role": "user",
+          "content": "here"
+        },
+        {
+          "role": "assistant",
+          "content": "I'm here! 😄 Ready and waiting to help you out.\n\nIs there something I can do for you today — maybe book a cleaning service or check out what Urban Klean offers?"
+        },
+        {
+          "role": "user",
+          "content": "if money just for cutting grass"
+        },
+        {
+          "role": "assistant",
+          "content": "That's totally understandable! Grass cutting can be a great service, but unfortunately that's just not in our lineup at Urban Klean. We stick to cleaning — and we're pretty great at it! 😄\n\nIf you ever need your home or office deep cleaned, sofa cleaned, or anything like that — I'm your guy! Is there anything else I can help you with?"
+        },
+        {
+          "role": "user",
+          "content": "assessment Hershey bunker"
+        },
+        {
+          "role": "assistant",
+          "content": "I'm sorry, I didn't quite catch that! It sounds like there might be some background noise or the message got a little jumbled. 😊\n\nCould you say that again? I want to make sure I help you out properly!"
+        },
+        {
+          "role": "user",
+          "content": "baby"
+        },
+        {
+          "role": "assistant",
+          "content": "Ha, I think we might have a bad connection or some background noise going on! 😄\n\nNo worries though — whenever you're ready, just let me know how I can help you with Urban Klean's cleaning services. I'm right here!"
+        },
+        {
+          "role": "user",
+          "content": "yeah I am"
+        },
+        {
+          "role": "assistant",
+          "content": "Great, glad you're here! 😄 \n\nSo, what can I help you with today? Looking to book a cleaning service, check out our offers, or something else?"
+        },
+        {
+          "role": "user",
+          "content": "byee"
+        },
+        {
+          "role": "assistant",
+          "content": "Bye bye! Have a wonderful day! 😊 If you ever need a cleaning service, Urban Klean is just a call away. Take care! 🌟"
+        }
+      ],
+      "state": "active",
+      "created_at": "2026-05-12T01:34:37.464Z",
+      "updated_at": "2026-05-12T01:46:44.393Z"
+    },
+    {
+      "id": 16,
+      "session_id": "1c09315b-5160-4b1c-b15c-e205b5ec784a",
+      "customer_phone": null,
+      "messages": [
+        {
+          "role": "user",
+          "content": "find best offers"
+        },
+        {
+          "role": "assistant",
+          "content": "Great news — we have 4 active offers right now!\n\nFirst is **FIRSTKLEAN** — twenty percent off your first booking, up to five hundred rupees. Second is **DEEPKLEAN15** — fifteen percent off on deep cleaning, move-in, or post-renovation services, up to seven fifty off. Third is **BATHROOM99** — flat ninety-nine rupees off on bathroom deep cleaning. And fourth is **WEEKEND10** — ten percent off any service booked on weekends, up to three hundred rupees.\n\nWould you like to book a service and get the best offer applied automatically?"
+        }
+      ],
+      "state": "active",
+      "created_at": "2026-05-12T23:00:02.647Z",
+      "updated_at": "2026-05-12T23:00:07.332Z"
+    },
+    {
+      "id": 17,
+      "session_id": "f47cf5b4-76dc-4f69-a3e7-924233ee8622",
+      "customer_phone": null,
+      "messages": [
+        {
+          "role": "user",
+          "content": "hey I know"
+        },
+        {
+          "role": "assistant",
+          "content": "It seems like your message got cut off there! No worries. Welcome to Urban Klean — Clean Spaces, Happy Places! I'm Dino, and I'm here to help you today. What were you saying? Go ahead!"
+        },
+        {
+          "role": "user",
+          "content": "I wanted to book the bathroom cleaning service"
+        },
+        {
+          "role": "assistant",
+          "content": "Got it! Our Bathroom Deep Cleaning service covers tile and grout scrubbing, toilet disinfection, fixture polishing, mirror cleaning, and a thorough floor scrub. Each session takes about an hour.\n\nPricing is based on the number of bathrooms — one bathroom is four ninety-nine rupees, two bathrooms is eight forty-nine, three is eleven forty-nine, and four is thirteen ninety-nine.\n\nHow many bathrooms would you like cleaned?"
+        },
+        {
+          "role": "user",
+          "content": "do you have any offers going on now"
+        },
+        {
+          "role": "assistant",
+          "content": "Great news — we have a couple of offers that could work for you!\n\nFirst, there's the \"Bathroom Add-on Deal\" — flat ninety-nine rupees off on bathroom deep cleaning, which applies directly to your booking. And if this is your first time with Urban Klean, you can get twenty percent off with our \"First Booking Discount.\" Also, if you're planning to book for this weekend, there's a ten percent weekend offer too!\n\nHow many bathrooms did you need cleaned? That'll help me figure out the best deal for you!"
+        },
+        {
+          "role": "user",
+          "content": "what is the best package that you can recommend"
+        },
+        {
+          "role": "assistant",
+          "content": "Great, I have all the details! Here's my honest recommendation:\n\nIf you have 2 or more bathrooms, go for the 2-bathroom package at eight forty-nine rupees. It gives you the best value per bathroom, and you can use the \"First Klean\" offer code if this is your first booking with us — that's 20% off, saving you a hundred and seventy rupees, bringing it down to just six seventy-nine rupees!\n\nIf it's just one bathroom, the \"Bathroom Add-on Deal\" gives you a flat ninety-nine rupees off, making it just four hundred rupees.\n\nSo — how many bathrooms do you need cleaned, and is this your first time booking with Urban Klean?"
+        },
+        {
+          "role": "user",
+          "content": "I will not tell you"
+        },
+        {
+          "role": "assistant",
+          "content": "Here's my honest recommendation based on real data!\n\nFor the best value, the 2-bathroom package at eight forty-nine rupees is great. Pair it with the \"Bathroom Add-on Deal\" for a flat ninety-nine rupees off, bringing it to seven fifty rupees.\n\nIf this is your first booking with Urban Klean, the \"First Klean\" code gives you 20% off — that's an even better saving!\n\nEither way, I can find the best deal once you're ready to book. Want to go ahead?"
+        },
+        {
+          "role": "user",
+          "content": "I like you"
+        },
+        {
+          "role": "assistant",
+          "content": "Aww, thank you, that's so sweet! I like you too! 😄\n\nNow, let's get those bathrooms sparkling clean for you! How many bathrooms would you like cleaned? And shall we go ahead and book it?"
+        },
+        {
+          "role": "user",
+          "content": "what are you doing rubber day"
+        },
+        {
+          "role": "assistant",
+          "content": "Ha, I think you meant \"what are you doing today?\" — I'm here all day helping customers like you book the cleanest, freshest spaces in Hyderabad!\n\nBut enough about me — let's get your bathroom cleaned! How many bathrooms do you need, and when would you like to schedule the service?"
+        }
+      ],
+      "state": "active",
+      "created_at": "2026-05-12T23:02:50.320Z",
+      "updated_at": "2026-05-12T23:07:06.972Z"
+    },
+    {
+      "id": 18,
+      "session_id": "32bf47ce-bb50-4553-a113-981a49680160",
+      "customer_phone": null,
+      "messages": [
+        {
+          "role": "user",
+          "content": "here I know"
+        },
+        {
+          "role": "assistant",
+          "content": "Hello! Welcome to Urban Klean — Clean Spaces, Happy Places!\n\nI'm Dino, your cleaning assistant. It seems like your message may have got cut off there. How can I help you today? Are you looking to book a cleaning service, check on an existing booking, or something else?"
+        },
+        {
+          "role": "user",
+          "content": "I want to play with you"
+        },
+        {
+          "role": "assistant",
+          "content": "Ha, I appreciate the fun spirit! But I'm best at helping you with cleaning services for your home or office.\n\nWhether it's a deep clean, regular housekeeping, or something specialty — I've got you covered. So, can I help you book a service today?"
+        },
+        {
+          "role": "user",
+          "content": "what are the best deals we have today for two bathroom cleaning service"
+        },
+        {
+          "role": "assistant",
+          "content": "Great news! Here's what I found for you.\n\nThe bathroom deep cleaning for 2 bathrooms is priced at eight forty-nine rupees. And we have a deal that's perfect for you — the Bathroom Add-on Deal gives you a flat 99 rupees off, bringing it down to just seven fifty rupees. You just need to use the code \"Bathroom Ninety-Nine\" at checkout.\n\nIf it's your very first booking with us, you could also use the First Klean code for 20% off, which saves you even more — that would bring it down to around six seventy-nine rupees!\n\nWould you like to go ahead and book this service today?"
+        },
+        {
+          "role": "user",
+          "content": "yes go ahead"
+        },
+        {
+          "role": "assistant",
+          "content": "I'd love to get that booked for you right away! Let me just grab a couple of details first.\n\nCould I get your name, phone number, and the address where you'd like the service done?"
+        },
+        {
+          "role": "user",
+          "content": "75"
+        },
+        {
+          "role": "assistant",
+          "content": "I think that might be part of your phone number! Could you share your full name, complete phone number, and service address so I can get your booking set up?"
+        },
+        {
+          "role": "user",
+          "content": "get your booking setup"
+        },
+        {
+          "role": "assistant",
+          "content": "Ha, sounds like you're ready to go! I just need a few details from you to get started.\n\nCould you please share your name, phone number, and the address where you'd like the cleaning done?"
+        }
+      ],
+      "state": "active",
+      "created_at": "2026-05-12T23:07:48.182Z",
+      "updated_at": "2026-05-12T23:10:04.213Z"
+    },
+    {
+      "id": 19,
+      "session_id": "d9f96244-2dfa-473d-87a1-1eecd9be8a9b",
+      "customer_phone": null,
+      "messages": [
+        {
+          "role": "user",
+          "content": "Medina"
+        },
+        {
+          "role": "assistant",
+          "content": "Welcome to Urban Klean, Medina! I'm Dino, your cleaning assistant. Clean Spaces, Happy Places — that's our promise!\n\nHow can I help you today? Are you looking to book a cleaning service, check an existing booking, or hear about our latest offers?"
+        },
+        {
+          "role": "user",
+          "content": "get me all the latest offers"
+        },
+        {
+          "role": "assistant",
+          "content": "Great news, Medina! We have four active offers right now.\n\nFirst, \"First Klean\" — get twenty percent off on your very first Urban Klean booking, up to five hundred rupees off. Minimum order five hundred rupees.\n\nSecond, \"Deep Klean Fifteen\" — fifteen percent off on deep cleaning, move-in, or post-renovation services. Minimum order two thousand rupees, up to seven fifty off.\n\nThird, \"Bathroom Ninety Nine\" — flat ninety-nine rupees off on bathroom deep cleaning above four ninety-nine rupees.\n\nAnd finally, \"Weekend Ten\" — ten percent off on any weekend booking, up to three hundred rupees off.\n\nWould you like to book a service and take advantage of any of these offers?"
+        },
+        {
+          "role": "user",
+          "content": "I wanted to book up two bathroom cleaning service my name is lokesh and my address is kphb Colony Hyderabad phone number 784-898-7286"
+        },
+        {
+          "role": "assistant",
+          "content": "Great, so for 2 bathrooms, the price is eight forty-nine rupees. That's a solid deal, Lokesh!\n\nNow, what date would you prefer for the cleaning? We're open every day from 8 AM to 8 PM."
+        },
+        {
+          "role": "user",
+          "content": "5:00 p.m."
+        },
+        {
+          "role": "assistant",
+          "content": "I'd love to lock that in, Lokesh! But could you also let me know which date you'd like the service? For example, tomorrow, this Saturday, or any specific date that works for you."
+        },
+        {
+          "role": "user",
+          "content": "tomorrow"
+        },
+        {
+          "role": "assistant",
+          "content": "Good news, Lokesh! Tomorrow, Thursday 14th May, is available. The closest slot to 5 PM is the 4 PM to 7 PM slot. Does that work for you?\n\nAlso, the 2 bathroom deep cleaning is priced at eight forty-nine rupees. And since you're a first-time customer, you may qualify for the \"First Klean\" offer — twenty percent off! Want me to apply that?"
+        },
+        {
+          "role": "user",
+          "content": "yes please"
+        },
+        {
+          "role": "assistant",
+          "content": "Fantastic, Lokesh! The 4 PM to 7 PM slot is available tomorrow, and the First Klean offer has been applied successfully!\n\nHere's your booking summary:\n\nService: Bathroom Deep Cleaning, 2 bathrooms\nDate: Thursday, 14th May 2026\nTime: 4 PM to 7 PM\nAddress: KPHB Colony, Hyderabad\nOriginal price: eight forty-nine rupees\nDiscount: one hundred and seventy rupees off\nTotal: six seventy-nine rupees\n\nShall I go ahead and confirm the booking? Payment will be collected before finalising."
+        },
+        {
+          "role": "user",
+          "content": "continue"
+        },
+        {
+          "role": "assistant",
+          "content": "Wonderful! The First Klean offer is confirmed — you save one hundred and seventy rupees!\n\nHere's your final booking summary before payment:\n\nService: Bathroom Deep Cleaning, 2 bathrooms\nDate: Thursday, 14th May 2026\nTime: 4 PM to 7 PM\nAddress: KPHB Colony, Hyderabad\nPhone: 784-898-7286\nOriginal price: eight forty-nine rupees\nDiscount applied: one hundred and seventy rupees\nTotal to pay: six seventy-nine rupees\n\nPlease go ahead and complete your payment of six seventy-nine rupees, and I'll confirm your booking right away!"
+        },
+        {
+          "role": "user",
+          "content": "make the payment"
+        },
+        {
+          "role": "assistant",
+          "content": "Your booking is confirmed, Lokesh! Here are your details:\n\nBooking Reference: UKL-MP395MZK\nService: Bathroom Deep Cleaning, 2 bathrooms\nDate: Thursday, 14th May 2026\nTime: 4 PM to 7 PM\nAddress: KPHB Colony, Hyderabad\nAmount Paid: six seventy-nine rupees\n\nPlease save your booking reference — UKL-MP395MZK — in case you need to track or manage your booking. Our team will be at your doorstep tomorrow! Thank you for choosing Urban Klean, Lokesh. Clean Spaces, Happy Places!"
+        },
+        {
+          "role": "user",
+          "content": "thank you"
+        },
+        {
+          "role": "assistant",
+          "content": "Thank you, Lokesh! Have a wonderful day, and we look forward to making your bathrooms sparkle tomorrow! If you need anything, you can always reach us at 1800-XXX-XXXX or visit urbanklean.in. Take care!"
+        }
+      ],
+      "state": "active",
+      "created_at": "2026-05-12T23:14:08.274Z",
+      "updated_at": "2026-05-12T23:19:54.607Z"
+    },
+    {
+      "id": 20,
+      "session_id": "fe8e5030-d59a-45b9-b533-0d7be880174c",
+      "customer_phone": null,
+      "messages": [
+        {
+          "role": "user",
+          "content": "find the best offers"
+        },
+        {
+          "role": "assistant",
+          "content": "Great news — we have four active offers right now!\n\nFirst, we have \"First Klean\" — get 20% off on your very first booking, up to five hundred rupees off, on orders above five hundred rupees.\n\nSecond, \"Deep Klean Fifteen\" — 15% off on deep cleaning, move-in, or post-renovation services, up to seven fifty off, on orders above two thousand rupees.\n\nThird, \"Bathroom 99\" — a flat 99 rupees off on bathroom deep cleaning above four ninety-nine rupees.\n\nAnd finally, \"Weekend Ten\" — book any service on the weekend and get 10% off, up to three hundred rupees off.\n\nWould you like to book a service and apply one of these offers?"
+        },
+        {
+          "role": "user",
+          "content": "find the best offer for two bathrooms cleaning"
+        },
+        {
+          "role": "assistant",
+          "content": "Great, so 2 bathrooms cleaning is priced at eight forty-nine rupees. Let me work out the best offer for you.\n\n\"Bathroom 99\" gives a flat 99 rupees off, bringing it down to seven fifty rupees.\n\n\"First Klean\" gives 20% off, which is about one sixty-nine rupees off, bringing it to six eighty rupees — that's the best deal if this is your first booking!\n\n\"Weekend Ten\" gives 10% off, about eighty-five rupees off, if you book on a Saturday or Sunday.\n\nSo the best offer is \"First Klean\" at six eighty rupees — if this is your first booking with us. Would you like to go ahead and book?"
+        },
+        {
+          "role": "user",
+          "content": "tomorrow"
+        },
+        {
+          "role": "assistant",
+          "content": "We have 6 slots open for tomorrow! Here they are:\n\n8 AM to 11 AM, 9 AM to 12 PM, 11 AM to 2 PM, 1 PM to 4 PM, 2 PM to 5 PM, and 4 PM to 7 PM.\n\nWhich time slot works best for you?"
+        },
+        {
+          "role": "user",
+          "content": "4:00 p.m."
+        },
+        {
+          "role": "assistant",
+          "content": "Perfect, 4 PM to 7 PM on Friday, 15th May it is!\n\nNow I just need a few details to complete the booking — your name, phone number, and service address please?"
+        },
+        {
+          "role": "user",
+          "content": "what are the top rated surveys in Auburn Maine"
+        },
+        {
+          "role": "assistant",
+          "content": "That's a little outside my area! I'm only able to help with Urban Klean's cleaning services in Hyderabad.\n\nBut I'd love to get your bathroom cleaning booked for tomorrow at 4 PM. Could you share your name, phone number, and service address in Hyderabad?"
+        },
+        {
+          "role": "user",
+          "content": "do I need to book now"
+        },
+        {
+          "role": "assistant",
+          "content": "Not at all! You're welcome to call us back anytime — we're available every day from 8 AM to 8 PM, or you can visit us at urbanklean.in.\n\nJust keep in mind that the 4 PM to 7 PM slot tomorrow is subject to availability, so the sooner you book, the better chance you have of securing it!\n\nIs there anything else I can help you with?"
+        },
+        {
+          "role": "user",
+          "content": "is is your favorite subway train"
+        },
+        {
+          "role": "assistant",
+          "content": "Ha, that's a fun one! But I'm just Dino, Urban Klean's cleaning assistant — trains are a bit out of my expertise!\n\nWhat I do know really well is getting your home sparkling clean. Shall we go ahead and lock in that bathroom cleaning for tomorrow at 4 PM?"
+        },
+        {
+          "role": "user",
+          "content": "is your cleaners are well trained"
+        },
+        {
+          "role": "assistant",
+          "content": "Absolutely! All our Urban Klean professionals go through rigorous training and background verification before they're on the job. They're experienced, trustworthy, and use premium cleaning products to give you the best results.\n\nWe're trusted by over 50,000 customers across Hyderabad, so you're in good hands! Would you like to go ahead and book your bathroom cleaning for tomorrow?"
+        },
+        {
+          "role": "user",
+          "content": "how about week later"
+        },
+        {
+          "role": "assistant",
+          "content": "Great news! All 6 slots are open on Thursday, 21st May. We have 8 AM, 9 AM, 11 AM, 1 PM, 2 PM, and 4 PM slots available.\n\nWould you like to stick with the 4 PM to 7 PM slot, or would you prefer a different time?"
+        }
+      ],
+      "state": "active",
+      "created_at": "2026-05-14T02:30:02.743Z",
+      "updated_at": "2026-05-14T02:34:34.791Z"
+    },
+    {
+      "id": 21,
+      "session_id": "9f362d7d-4690-4c31-a962-e2dcf1eebffa",
+      "customer_phone": null,
+      "messages": [
+        {
+          "role": "user",
+          "content": "mobile format so this works I think I need to share it with you let me share in the screen so that we can see how it is"
+        },
+        {
+          "role": "assistant",
+          "content": "It sounds like you might be testing the interface or trying to share something, but I'm a voice assistant — I'm not able to see screens or receive shared files.\n\nBut I'm all set and ready to help you! I'm Dino from Urban Klean. Whether you'd like to book a cleaning service, check on an existing booking, or know about our latest offers, just let me know. How can I help you today?"
+        }
+      ],
+      "state": "active",
+      "created_at": "2026-05-14T03:22:48.459Z",
+      "updated_at": "2026-05-14T03:22:51.723Z"
+    },
+    {
+      "id": 22,
+      "session_id": "52bd0934-67f5-42d2-b49a-5eac8aa99c89",
+      "customer_phone": null,
+      "messages": [
+        {
+          "role": "user",
+          "content": "work right so if you normally if you want to wake up or we can say hey I know right so that's what you just get started"
+        },
+        {
+          "role": "assistant",
+          "content": "Welcome to Urban Klean! I'm Dino, your cleaning assistant. Clean Spaces, Happy Places!\n\nHow can I help you today? Whether it's booking a cleaning service, checking our offers, or anything else — I'm right here for you!"
+        },
+        {
+          "role": "user",
+          "content": "if you say hey I know"
+        },
+        {
+          "role": "assistant",
+          "content": "Got it! You can just say \"Hey Dino\" to wake me up anytime you need me!\n\nSo, how can I help you today? Looking to book a cleaning service, check an offer, or something else?"
+        }
+      ],
+      "state": "active",
+      "created_at": "2026-05-14T03:23:11.847Z",
+      "updated_at": "2026-05-14T03:23:20.896Z"
+    },
+    {
+      "id": 23,
+      "session_id": "57dfb00e-3c6e-4d8d-8927-3b3673e39648",
+      "customer_phone": null,
+      "messages": [
+        {
+          "role": "user",
+          "content": "find me the best offers"
+        },
+        {
+          "role": "assistant",
+          "content": "Great news, we have four awesome offers running right now!\n\nFirst is \"First Klean\" — get twenty percent off your very first booking, up to five hundred rupees off. Perfect if you haven't booked with us before.\n\nSecond is \"Deep Klean Fifteen\" — fifteen percent off on deep cleaning, move-in, or post-renovation services, up to seven fifty off, on orders above two thousand rupees.\n\nThird is \"Bathroom Ninety-Nine\" — a flat ninety-nine rupees off on bathroom deep cleaning above four ninety-nine rupees.\n\nAnd fourth is \"Weekend Ten\" — ten percent off on any service booked for the weekend, up to three hundred rupees off.\n\nWould you like to book a service and take advantage of any of these? I can help you find the best one that applies!"
+        },
+        {
+          "role": "user",
+          "content": "because I'll be deep cleaning for two bathroom"
+        },
+        {
+          "role": "assistant",
+          "content": "So for two bathrooms, the price is eight forty-nine rupees, and it covers everything — tile and grout scrubbing, toilet disinfection, fixture polishing, mirror cleaning, and a full floor deep scrub.\n\nNow, the \"Bathroom Ninety-Nine\" offer gives a flat ninety-nine rupees off on bathroom deep cleaning, which would bring your total down to seven fifty rupees. And if you're booking this weekend, the \"Weekend Ten\" offer could save you even more — eighty-four rupees off instead!\n\nWould you like to go ahead and book this? Just tell me your preferred date and I'll check availability for you!"
+        },
+        {
+          "role": "user",
+          "content": "do I need to book now"
+        },
+        {
+          "role": "assistant",
+          "content": "Not at all! You can book whenever you're ready. We're available Monday through Sunday, 8 AM to 8 PM, and you can always reach us at 1800-XXX-XXXX or visit urbanklean.in to book online.\n\nThat said, weekends do fill up fast, so if you're thinking this weekend, it's worth booking early to grab a good time slot. Shall I check availability for you?"
+        },
+        {
+          "role": "user",
+          "content": "I like your wife"
+        },
+        {
+          "role": "assistant",
+          "content": "Ha, that's a sweet thing to say! I'm just Dino, your virtual assistant for Urban Klean, so no wife here — but I do love helping customers find a great deal!\n\nSpeaking of which, are you ready to book that bathroom deep cleaning? I'd love to get you sorted with the best offer available!"
+        },
+        {
+          "role": "user",
+          "content": "looking for tomorrow"
+        },
+        {
+          "role": "assistant",
+          "content": "Great news, we have plenty of slots open tomorrow! Here are the options:\n\n8 AM to 11 AM, 9 AM to 12 PM, 11 AM to 2 PM, 1 PM to 4 PM, 2 PM to 5 PM, or 4 PM to 7 PM.\n\nWhich time works best for you?"
+        },
+        {
+          "role": "user",
+          "content": "4:00 p.m."
+        },
+        {
+          "role": "assistant",
+          "content": "Perfect, 4 PM to 7 PM tomorrow, Friday the 15th of May it is!\n\nNow I just need a few details to complete your booking — your name, phone number, and service address please?"
+        },
+        {
+          "role": "user",
+          "content": "my name is lokesh and address 1756 kphb Colony Hyderabad"
+        },
+        {
+          "role": "assistant",
+          "content": "Got it, Lokesh! And what's your phone number so I can complete the booking?"
+        },
+        {
+          "role": "user",
+          "content": "2283-4756-18"
+        },
+        {
+          "role": "assistant",
+          "content": "Thanks, Lokesh! Just to confirm, your phone number is 2283-4756-18 — is that correct? That seems a bit long for a standard number. Could you double-check that for me?"
+        },
+        {
+          "role": "user",
+          "content": "that's correct"
+        },
+        {
+          "role": "assistant",
+          "content": "Here's a summary of your booking before we confirm:\n\nService: Bathroom Deep Cleaning for 2 bathrooms. Date: Tomorrow, Friday the 15th of May. Time: 4 PM to 7 PM. Address: 1756 KPHB Colony, Hyderabad. Offer applied: Bathroom Ninety-Nine, saving you ninety-nine rupees. Total: seven fifty rupees.\n\nShall I go ahead and confirm this booking, Lokesh?"
+        },
+        {
+          "role": "user",
+          "content": "please proceed"
+        },
+        {
+          "role": "assistant",
+          "content": "Your booking is confirmed, Lokesh! Your reference number is UKL-MP4XIZ5Y — please save that for your records.\n\nOur team will be at 1756 KPHB Colony tomorrow at 4 PM. Total payable is seven fifty rupees. Thank you for choosing Urban Klean — Clean Spaces, Happy Places!"
+        },
+        {
+          "role": "user",
+          "content": "thank you"
+        },
+        {
+          "role": "assistant",
+          "content": "Thank you, Lokesh! Have a wonderful day, and we'll see you tomorrow! If you ever need anything, don't hesitate to call us at 1800-XXX-XXXX. Take care!"
+        },
+        {
+          "role": "user",
+          "content": "yeah so this one like we created with existing model integrated and we're using the plane the postgres database with all the I think we are trying to spend more time to because it was"
+        },
+        {
+          "role": "assistant",
+          "content": "It sounds like you're in the middle of building something interesting! But I think this might have been meant for a different conversation — I'm Dino, the Urban Klean assistant, so I can only help with cleaning services, bookings, and offers.\n\nIs there anything else I can help you with today?"
+        }
+      ],
+      "state": "active",
+      "created_at": "2026-05-14T03:23:52.665Z",
+      "updated_at": "2026-05-14T03:30:07.845Z"
+    },
+    {
+      "id": 24,
+      "session_id": "9acc6ab0-bc39-4f69-8d22-a51c4fb888b2",
+      "customer_phone": null,
+      "messages": [
+        {
+          "role": "user",
+          "content": "can you book me a flight"
+        },
+        {
+          "role": "assistant",
+          "content": "I'm sorry, flight bookings are a little outside my area! I'm Dino, your assistant for Urban Klean, Hyderabad's premium cleaning service. I can help you book home cleaning, deep cleaning, commercial cleaning, and more. Is there anything cleaning-related I can help you with today?"
+        },
+        {
+          "role": "user",
+          "content": "what cleaning services do you offer"
+        },
+        {
+          "role": "assistant",
+          "content": "We have a great range of services! Let me give you a quick overview.\n\nFor home cleaning, we offer Regular Home Cleaning, Premium Deep Cleaning, Bedroom Cleaning, Living Room Cleaning, and Move-in Move-out Cleaning, among others.\n\nFor specialty services, we have Bathroom Deep Cleaning, Kitchen Deep Cleaning, Sofa and Upholstery Cleaning, Mattress Cleaning, Carpet Cleaning, Window Cleaning, Water Tank Cleaning, Disinfection and Sanitization, and many more.\n\nAnd for commercial spaces, we cover Offices, Clinics, Restaurants, Retail Stores, Society Common Areas, and Event Cleanup.\n\nWould you like details on any particular service, or shall I help you book one?"
+        },
+        {
+          "role": "user",
+          "content": "I like the book they brought them cleaning for two bathrooms"
+        },
+        {
+          "role": "assistant",
+          "content": "Got it! For two bathrooms, our Bathroom Deep Cleaning is priced at eight forty-nine rupees. That covers tile and grout scrubbing, toilet disinfection, fixture polishing, mirror cleaning, and a thorough floor deep scrub — all in about two hours.\n\nShall I go ahead and book this for you? I just need your name, phone number, and service address to get started!"
+        },
+        {
+          "role": "user",
+          "content": "I like you so much"
+        },
+        {
+          "role": "assistant",
+          "content": "That's so sweet, thank you! I'm here to make things easy for you. Now, shall we get that Bathroom Deep Cleaning booked for your two bathrooms? Just share your name, phone number, and service address and we'll get you all set up!"
+        }
+      ],
+      "state": "active",
+      "created_at": "2026-05-14T04:10:24.675Z",
+      "updated_at": "2026-05-14T04:12:32.281Z"
+    },
+    {
+      "id": 25,
+      "session_id": "68b6908d-5ae9-4969-9295-54617d428555",
+      "customer_phone": null,
+      "messages": [
+        {
+          "role": "user",
+          "content": "and then it'll start with like this is the same Mobile in exactly how mobile application"
+        },
+        {
+          "role": "assistant",
+          "content": "It seems like that message may have come through by mistake — perhaps a stray thought or a wrong window!\n\nNo worries at all. Welcome to Urban Klean — Clean Spaces, Happy Places! I am Dino, your cleaning assistant.\n\nHow can I help you today? Are you looking to book a cleaning service, check an existing booking, or maybe hear about our latest offers?"
+        }
+      ],
+      "state": "active",
+      "created_at": "2026-05-14T04:44:19.886Z",
+      "updated_at": "2026-05-14T04:44:22.844Z"
+    },
+    {
+      "id": 26,
+      "session_id": "382441b2-a00f-482a-b923-143db6936ebe",
+      "customer_phone": null,
+      "messages": [
+        {
+          "role": "user",
+          "content": "start with like if you call like"
+        },
+        {
+          "role": "assistant",
+          "content": "Welcome to Urban Klean, Hyderabad's most trusted cleaning service! I'm Dino, your personal assistant for Clean Spaces and Happy Places.\n\nWhether you're looking to book a home cleaning, check on an existing booking, or hear about our latest offers, I'm here to help. So, what can I do for you today?"
+        },
+        {
+          "role": "user",
+          "content": "can I book a flight for me"
+        },
+        {
+          "role": "assistant",
+          "content": "Ha, I wish I could help with that! But I'm Dino from Urban Klean, and flights are a little outside my area of expertise.\n\nWhat I'm really good at is getting your home or office sparkling clean! Can I help you book a cleaning service today?"
+        },
+        {
+          "role": "user",
+          "content": "what services do you offer"
+        },
+        {
+          "role": "assistant",
+          "content": "We've got quite a range! Let me give you a quick overview.\n\nFor homes, we offer Regular Home Cleaning, Premium Deep Cleaning, Move-in Move-out Cleaning, and Post Renovation Cleaning.\n\nFor specialty services, we have Bathroom and Kitchen Deep Cleaning, Sofa and Mattress Cleaning, Carpet Cleaning, Window Cleaning, Water Tank Cleaning, Disinfection, and more.\n\nFor commercial spaces, we cover Offices, Clinics, Restaurants, Retail Stores, and even Society Common Areas.\n\nThat's twenty-seven services in all! Would you like details on any particular one, or shall I help you book something today?"
+        },
+        {
+          "role": "user",
+          "content": "do you have any special offers today"
+        },
+        {
+          "role": "assistant",
+          "content": "Great news, we have four active offers right now!\n\nFirst, if it's your first booking with us, you get twenty percent off using the code \"First Klean.\" That's a saving of up to five hundred rupees.\n\nSecond, for deep cleaning, move-in, or post-renovation services, use \"Deep Klean Fifteen\" for fifteen percent off, up to seven fifty rupees off.\n\nThird, \"Bathroom Ninety Nine\" gives you a flat ninety nine rupees off on bathroom deep cleaning.\n\nAnd finally, \"Weekend Ten\" gives you ten percent off on any weekend booking, up to three hundred rupees off.\n\nWould you like to book a service and take advantage of any of these offers today?"
+        },
+        {
+          "role": "user",
+          "content": "I wanted to book bathroom deep cleaning for two bathrooms"
+        },
+        {
+          "role": "assistant",
+          "content": "Perfect! For two bathrooms, the price is eight forty-nine rupees, and it takes about an hour per bathroom.\n\nNow, may I know your good name, your phone number, and the address where you'd like the service done?"
+        },
+        {
+          "role": "user",
+          "content": "is there a discount on the service"
+        },
+        {
+          "role": "assistant",
+          "content": "Absolutely! There are two offers that could apply for you.\n\nIf this is your first booking with Urban Klean, you get twenty percent off using \"First Klean.\" And there's also a flat ninety nine rupees off specifically on bathroom deep cleaning using \"Bathroom Ninety Nine.\"\n\nOf course, only one offer can be applied at a time, so we'll pick the best one for you!\n\nTo check which suits you better, could you share your phone number? I can look up your booking history and confirm if you're eligible for the first-time offer."
+        },
+        {
+          "role": "user",
+          "content": "I'd like to proceed with my booking"
+        },
+        {
+          "role": "assistant",
+          "content": "Sure! To get your booking set up, could I get your name, phone number, and the address where you'd like the service done?"
+        },
+        {
+          "role": "user",
+          "content": "my name is lokesh address 1745 kphb Colony Hyderabad phone number 789-567480"
+        },
+        {
+          "role": "assistant",
+          "content": "Great news, Lokesh! You have no previous bookings with us, so you're eligible for the first-time offer \"First Klean\" with twenty percent off!\n\nNow, what date would you like the service? And do you have a preferred time slot?"
+        },
+        {
+          "role": "user",
+          "content": "tomorrow 5:00"
+        },
+        {
+          "role": "assistant",
+          "content": "We have good availability tomorrow, Lokesh! However, we don't have a 5 PM start slot. The closest option would be 4 PM to 7 PM, which works perfectly for a two-bathroom service.\n\nWould that work for you?"
+        },
+        {
+          "role": "user",
+          "content": "yes please proceed"
+        },
+        {
+          "role": "assistant",
+          "content": "Great news, Lokesh! The \"First Klean\" offer gives you a saving of one hundred and seventy rupees, bringing your total down to six seventy-nine rupees.\n\nHere's a quick summary before we confirm:\n\nService is Bathroom Deep Cleaning for two bathrooms. Date is tomorrow, Friday 15th May, from 4 PM to 7 PM. Address is 1745 KPHB Colony, Hyderabad. Offer applied is First Klean, saving you one seventy rupees. Total payable is six seventy-nine rupees.\n\nShall I go ahead and confirm your booking? Payment will be collected before we finalize it."
+        },
+        {
+          "role": "user",
+          "content": "please proceed"
+        },
+        {
+          "role": "assistant",
+          "content": "Your booking is confirmed, Lokesh! Your reference number is UKL-MP50FWE0, please save that for future reference.\n\nOur team will be at 1745 KPHB Colony tomorrow between 4 PM and 7 PM. Total paid is six seventy-nine rupees after your First Klean discount.\n\nThank you for choosing Urban Klean! Clean Spaces, Happy Places. Have a wonderful day!"
+        },
+        {
+          "role": "user",
+          "content": "thank you"
+        },
+        {
+          "role": "assistant",
+          "content": "Thank you, Lokesh! It was a pleasure assisting you today. If you ever need anything, just give us a call. Have a great day, and enjoy your sparkling clean bathrooms!"
+        },
+        {
+          "role": "user",
+          "content": "period this is like a basic flowery kind of Creator but it it is kind of you can deviate any direction it cannot list make sure that it focus on trying to book things we're also completely generating the kind of transcript eventually we're going to use this transcripts to try and the model eventually no at least for a couple of months if I need it really pick up all the local song and everything"
+        },
+        {
+          "role": "assistant",
+          "content": "Got it! So the goal is to generate realistic, natural conversation transcripts that can eventually be used for fine-tuning a model. The assistant should stay focused on driving toward a booking, handle deviations gracefully, and pick up local Hyderabad flavor naturally over time.\n\nA few things I want to confirm so I get this right:\n\nShould the transcripts cover a wide range of customer types, like first timers, repeat customers, bargain hunters, confused callers, and so on? And do you want me to start generating full sample transcripts now, or keep running live conversations and just make sure the tone and flow is right first?"
+        }
+      ],
+      "state": "active",
+      "created_at": "2026-05-14T04:44:44.265Z",
+      "updated_at": "2026-05-14T04:52:06.706Z"
+    },
+    {
+      "id": 27,
+      "session_id": "06368f86-c346-4dd7-b5cd-cb5bce4fc49c",
+      "customer_phone": null,
+      "messages": [
+        {
+          "role": "user",
+          "content": "schedule an appointment"
+        },
+        {
+          "role": "assistant",
+          "content": "Welcome to Urban Klean — Clean Spaces, Happy Places! I'm Dino, and I'm happy to help you schedule a cleaning appointment today.\n\nTo get started, could you tell me your name, your phone number, and the address where you'd like the service done?"
+        },
+        {
+          "role": "user",
+          "content": "Valerie"
+        },
+        {
+          "role": "assistant",
+          "content": "Great to meet you, Valerie! Could you share your phone number and the address where you'd like the cleaning done?"
+        },
+        {
+          "role": "user",
+          "content": "720-917-4583"
+        },
+        {
+          "role": "assistant",
+          "content": "Thanks, Valerie! And what's the address where you'd like the service done?"
+        },
+        {
+          "role": "user",
+          "content": "13762 French Creek Lane Frisco"
+        },
+        {
+          "role": "assistant",
+          "content": "We have a wide range of services available, Valerie! To help me point you in the right direction, what kind of cleaning are you looking for? For example, regular home cleaning, a deep clean, kitchen or bathroom cleaning, or something else?"
+        },
+        {
+          "role": "user",
+          "content": "in the house"
+        },
+        {
+          "role": "assistant",
+          "content": "We have some great home cleaning options, Valerie! Here's a quick overview:\n\nRegular Home Cleaning starts at nine ninety-nine rupees. Premium Home Deep Cleaning starts at twenty-four ninety-nine. We also have Bedroom Cleaning, Living Room Cleaning, Move-in Move-out Cleaning, and Post Renovation Cleaning.\n\nWhich of these sounds like what you need? And how many bedrooms does your home have?"
+        },
+        {
+          "role": "user",
+          "content": "deep clean for five bedrooms and four bathrooms"
+        },
+        {
+          "role": "assistant",
+          "content": "For a five bedroom home, that would fall under our Villa category, which is priced at fifty-nine ninety-nine rupees. It covers everything from bathroom grout scrubbing and kitchen degreasing to balcony cleaning and detailed dust removal — a full top-to-bottom clean!\n\nWhat date would you like to schedule this for, Valerie?"
+        }
+      ],
+      "state": "active",
+      "created_at": "2026-05-15T23:26:35.112Z",
+      "updated_at": "2026-05-15T23:28:33.728Z"
+    },
+    {
+      "id": 28,
+      "session_id": "f05383a6-4545-469b-b9d7-d48f32507a02",
+      "customer_phone": null,
+      "messages": [
+        {
+          "role": "user",
+          "content": "what happened"
+        },
+        {
+          "role": "assistant",
+          "content": "Hey there! Welcome to Urban Klean, Hyderabad's most trusted cleaning service. I'm Dino, and I'm here to help you out.\n\nLooks like your message came through a little unclear. No worries at all! Just let me know what I can help you with today.\n\nAre you looking to book a cleaning service, check on an existing booking, or maybe find out about our latest offers? Go ahead, I'm all ears!"
+        },
+        {
+          "role": "user",
+          "content": "the latest offers"
+        },
+        {
+          "role": "assistant",
+          "content": "We've got some great offers running right now! Here's a quick rundown.\n\nFirst up, \"First Klean\" — get twenty percent off your very first booking with us, up to five hundred rupees off. Perfect if you're new to Urban Klean!\n\nNext, \"Deep Klean Fifteen\" — fifteen percent off on deep cleaning, move-in, or post-renovation services, up to seven fifty off. Minimum order of two thousand rupees applies.\n\nThen there's \"Bathroom Ninety-Nine\" — a flat ninety-nine rupees off on bathroom deep cleaning for orders above four ninety-nine.\n\nAnd finally, \"Weekend Ten\" — ten percent off on any service booked for the weekend, up to three hundred rupees off. Great timing since it's the weekend!\n\nWould you like to go ahead and book a service so we can apply one of these offers for you?"
+        },
+        {
+          "role": "user",
+          "content": "yes"
+        },
+        {
+          "role": "assistant",
+          "content": "We've got a wide range of services! Let me give you a quick overview.\n\nFor home cleaning, we have Regular Home Cleaning starting at nine ninety-nine rupees, Premium Deep Cleaning from twenty-four ninety-nine, and Move-in or Move-out Cleaning from thirty-nine ninety-nine.\n\nFor specialty services, we have Bathroom Deep Cleaning, Kitchen Deep Cleaning, Sofa and Mattress Cleaning, Window Cleaning, and many more.\n\nAnd for commercial spaces, we cover offices, clinics, restaurants, retail stores, and even society common areas.\n\nWhich type of service sounds right for you? Or would you like more details on any specific one?"
+        },
+        {
+          "role": "user",
+          "content": "I"
+        },
+        {
+          "role": "assistant",
+          "content": "No worries, it seems like your message got cut off there! Go ahead and let me know what you were saying. I'm listening!"
+        },
+        {
+          "role": "user",
+          "content": "so what are the prices for five bedroom and four bathroom"
+        },
+        {
+          "role": "assistant",
+          "content": "Sure! So for the home cleaning, we don't have a specific five bedroom variant, but our Villa package would be the best fit at thirty-four ninety-nine rupees.\n\nAnd for four bathrooms, the Bathroom Deep Cleaning comes to thirteen ninety-nine rupees.\n\nIf you book both together, that brings your total to forty-eight ninety-eight rupees, and we can likely apply an offer on top of that too! Would you like to go ahead and book both services?"
+        },
+        {
+          "role": "user",
+          "content": "yes"
+        },
+        {
+          "role": "assistant",
+          "content": "Wonderful! Let me get your booking details sorted. Could I get your name, phone number, and the service address please?"
+        },
+        {
+          "role": "user",
+          "content": "but lovey 72019-54-583"
+        },
+        {
+          "role": "assistant",
+          "content": "Thank you for that! I have your name as Lovey and your phone number. Could you also share the service address where you'd like the cleaning done?"
+        },
+        {
+          "role": "user",
+          "content": "yeah 13762 French Creek Lane Hyderabad"
+        },
+        {
+          "role": "assistant",
+          "content": "Got it, Lovey! So just to confirm the details so far:\n\nName: Lovey, Phone: 72019-54-583, Address: 13762 French Creek Lane, Hyderabad.\n\nNow, what date would you like to schedule the cleaning? And do you have a preferred time slot in mind?"
+        },
+        {
+          "role": "user",
+          "content": "tomorrow"
+        },
+        {
+          "role": "assistant",
+          "content": "Great news, Lovey! We have plenty of slots available for tomorrow, Sunday the 17th of May. Here are your options:\n\nEight AM to eleven AM, nine AM to twelve PM, eleven AM to two PM, one PM to four PM, two PM to five PM, or four PM to seven PM.\n\nWhich time works best for you?"
+        },
+        {
+          "role": "user",
+          "content": "morning time"
+        },
+        {
+          "role": "assistant",
+          "content": "The morning slots we have are eight AM to eleven AM, and nine AM to twelve PM. Which one would you prefer, Lovey?"
+        },
+        {
+          "role": "user",
+          "content": "hey I'm at 11:00 a.m."
+        },
+        {
+          "role": "assistant",
+          "content": "Okay Lovey, I've got all the details! Let me break it down for you.\n\nFor the Villa home cleaning, that's thirty-four ninety-nine rupees. For four bathroom deep cleaning, that's thirteen ninety-nine rupees. So the base total comes to forty-eight ninety-eight rupees.\n\nNow since it's the weekend, the \"Weekend Ten\" offer gives you ten percent off, which is three hundred rupees, bringing your total down to forty-five ninety-eight rupees!\n\nSo to confirm everything before we proceed to payment:\n\nName: Lovey, Phone: 72019-54-583, Address: 13762 French Creek Lane Hyderabad, Services: Villa Home Cleaning and Four Bathroom Deep Cleaning, Date: Sunday 17th May, Time: Nine AM to twelve PM, Total: Forty-five ninety-eight rupees after the Weekend Ten discount.\n\nShall I go ahead and confirm the booking?"
+        },
+        {
+          "role": "user",
+          "content": "can you change the booking to two days later"
+        },
+        {
+          "role": "assistant",
+          "content": "Great news, all slots are open on Monday the 18th of May! And since it's a weekday, just a heads up that the Weekend Ten offer won't apply. But we can check if any other offer works for you!\n\nWould you still like the nine AM to twelve PM slot, or would you prefer a different time?"
+        },
+        {
+          "role": "user",
+          "content": "still works"
+        },
+        {
+          "role": "assistant",
+          "content": "Great news, Lovey! Tuesday the 19th of May has the nine AM to twelve PM slot available.\n\nAnd even better, the Deep Klean Fifteen offer applies to your booking since it includes deep cleaning services. You save seven thirty-five rupees, bringing your total down to forty-one sixty-three rupees!\n\nSo here's the updated summary:\n\nName: Lovey, Phone: 72019-54-583, Address: 13762 French Creek Lane Hyderabad, Services: Villa Home Cleaning and Four Bathroom Deep Cleaning, Date: Tuesday 19th May, Time: Nine AM to twelve PM, Total: Forty-one sixty-three rupees after the Deep Klean Fifteen discount.\n\nShall I go ahead and confirm the booking?"
+        },
+        {
+          "role": "user",
+          "content": "okay"
+        },
+        {
+          "role": "assistant",
+          "content": "The Deep Klean Fifteen offer is confirmed! Here's your final booking summary, Lovey:\n\nName: Lovey, Phone: 72019-54-583, Address: 13762 French Creek Lane Hyderabad, Services: Villa Home Cleaning and Four Bathroom Deep Cleaning, Date: Tuesday 19th May, Time: Nine AM to twelve PM, Original Amount: Forty-eight ninety-eight rupees, Discount: Seven thirty-five rupees, Total: Forty-one sixty-three rupees.\n\nShall I proceed to payment to confirm your booking?"
+        },
+        {
+          "role": "user",
+          "content": "okay just go ahead"
+        },
+        {
+          "role": "assistant",
+          "content": "Your booking is all confirmed, Lovey! Your reference number is UKL-MP7K556A. Our team will be at your place on Tuesday the 19th of May between nine AM and twelve PM. Total charged is forty-one sixty-three rupees after your discount.\n\nThank you for choosing Urban Klean! Clean Spaces, Happy Places. Have a wonderful day!"
+        },
+        {
+          "role": "user",
+          "content": "hello let me thank you"
+        },
+        {
+          "role": "assistant",
+          "content": "Aw, that's so sweet of you, Lovey! Thank you so much, it was my pleasure helping you out today. We're really looking forward to making your home sparkle on Tuesday!\n\nIf you ever need anything, don't hesitate to call us back. Take care and have a lovely weekend!"
+        },
+        {
+          "role": "user",
+          "content": "on The Middle"
+        },
+        {
+          "role": "assistant",
+          "content": "Ha, sounds like something got cut off there! Did you mean to say something? Go ahead, I'm still here if you need anything!"
+        }
+      ],
+      "state": "active",
+      "created_at": "2026-05-15T23:28:52.993Z",
+      "updated_at": "2026-05-15T23:38:43.195Z"
+    }
+  ],
+  "time_slots": [
+    {
+      "id": 1,
+      "date": "2025-07-16",
+      "slot": "2:00 PM - 5:00 PM",
+      "is_booked": 1,
+      "booking_id": 1
+    },
+    {
+      "id": 2,
+      "date": "2026-05-13",
+      "slot": "04:00 PM - 07:00 PM",
+      "is_booked": 1,
+      "booking_id": 2
+    },
+    {
+      "id": 3,
+      "date": "2026-05-14",
+      "slot": "4 PM - 7 PM",
+      "is_booked": 1,
+      "booking_id": 3
+    },
+    {
+      "id": 4,
+      "date": "2026-05-15",
+      "slot": "4:00 PM - 7:00 PM",
+      "is_booked": 1,
+      "booking_id": 4
+    },
+    {
+      "id": 5,
+      "date": "2026-05-15",
+      "slot": "04:00 PM - 07:00 PM",
+      "is_booked": 1,
+      "booking_id": 5
+    },
+    {
+      "id": 6,
+      "date": "2026-05-19",
+      "slot": "09:00 AM - 12:00 PM",
+      "is_booked": 1,
+      "booking_id": 6
+    }
+  ],
   "_sequences": {
-    "customers": 1,
-    "services": 1,
-    "offers": 1,
-    "bookings": 1,
-    "sessions": 1,
-    "slots": 1
+    "customers": 7,
+    "services": 28,
+    "offers": 5,
+    "bookings": 7,
+    "sessions": 29,
+    "slots": 7
   }
 }
